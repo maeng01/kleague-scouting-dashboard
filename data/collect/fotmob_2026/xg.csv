@@ -1,0 +1,28 @@
+# 소스: FotMob "예상 골 (xG)" 리더보드, K League 1 2026 시즌 (진행 중, 수집 2026-08-28)
+# https://www.fotmob.com/leagues/... → Stats → Expected goals
+# 사용자가 붙여넣은 리더보드에서 2025 스트라이커 풀 관련 선수만 발췌. 전체 리스트는 다음 수집 때 fotmob_league_rank 형식으로.
+# 주의: 시즌이 다름 — 현재 대시보드 base 는 2025 FBref. 시즌 통일 결정 필요 (SEASON_DECISION.md 참고)
+fotmob_rank,fotmob_name,goals_2026,xg_2026
+1,Yago Cariello,11,13.7
+2,Patryk Klimala,10,10.0
+3,Ho-Jae Lee,8,9.4
+5,Stefan Mugosa,10,8.4
+6,Galego (Jefferson Galego),8,7.6
+8,Dong-Gyeong Lee,9,7.3
+9,Abdalla Halaihal (Hleihil),7,7.3
+10,Negueba (Emerson),5,7.2
+11,Bruno Mota,3,6.6
+12,Morgan Ferrier,6,6.3
+13,Matheus Oliveira Santos,10,6.2
+15,Marcão,5,5.5
+16,Kun-Hee Lee,4,5.5
+17,Min-Kyu Joo,5,5.4
+21,Diogo,3,4.8
+22,Hólmbert Fridjónsson,1,4.6
+25,Tiago Orobó,4,4.2
+29,Vitor Gabriel,5,3.9
+30,Jae-Hee Jeong,6,3.8
+53,Shin-Jin Kim,3,2.4
+58,Breno Herculano,2,2.3
+71,John Montaño,1,1.9
+72,Gun-Hee Kim,0,1.9

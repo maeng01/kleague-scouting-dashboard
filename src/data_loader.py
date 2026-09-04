@@ -1,0 +1,58 @@
+"""처리된 데이터셋 로드 · 병합.
+
+경기력 데이터는 `python rebuild.py` 로 생성된 data/processed/*.csv 를 읽는다.
+(원본 수집 파일은 2026 Stats/ · 2025 Stats/, 파서는 src/build.py)
+"""
+
+from __future__ import annotations
+
+import json
+
+import pandas as pd
+
+from . import config as C
+
+
+def load_strikers() -> pd.DataFrame:
+    """2026 스트라이커 22명 (경기력 + percentile + 신뢰도 티어)."""
+    df = pd.read_csv(C.STRIKERS_2026_CSV)
+    df["age_display"] = df["age_years"].map(lambda a: f"{int(a)}세" if pd.notna(a) else "—")
+    df["nation_code"] = df["Nation"].map(
+        lambda n: str(n).split(" ")[-1] if pd.notna(n) else "—"
+    )
+    df["small_sample"] = df["90s"] < C.SMALL_SAMPLE_90S
+    # 결정력 = 실득점률 − 기대득점률
+    if {"Gls_90", "xg_90"}.issubset(df.columns):
+        df["finishing_90"] = (df["Gls_90"] - df["xg_90"]).round(3)
+    return df
+
+
+def load_strikers_prior() -> pd.DataFrame:
+    """2025 완료 시즌 레이어 (직전 시즌 맥락). Player 기준, 있는 선수만."""
+    try:
+        return pd.read_csv(C.STRIKERS_2025_CSV)
+    except FileNotFoundError:
+        return pd.DataFrame(columns=["Player"])
+
+
+def load_brand_fit() -> pd.DataFrame:
+    df = pd.read_csv(C.BRAND_FIT_CSV)
+    df["image_tags_list"] = df["image_tags"].map(
+        lambda s: [t for t in str(s).split("|") if t and t != "nan"]
+    )
+    df["has_sns"] = df["followers"].notna()
+    return df
+
+
+def load_case_studies() -> list[dict]:
+    with open(C.CASE_STUDIES_JSON, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def merge(strikers: pd.DataFrame, brand: pd.DataFrame) -> pd.DataFrame:
+    return strikers.merge(brand, left_on="Player", right_on="player", how="left")
+
+
+def prior_row(prior: pd.DataFrame, player: str) -> pd.Series | None:
+    hit = prior.loc[prior["Player"] == player]
+    return None if hit.empty else hit.iloc[0]
