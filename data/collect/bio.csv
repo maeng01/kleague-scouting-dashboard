@@ -1,5 +1,5 @@
 Player,dob,height_cm,weight_kg,preferred_foot,nationality,nt_caps,nt_goals,market_value_eur,market_value_asof,contract_until,boot_sponsor,transfermarkt_url,source,collected_date,notes
-Marcão,1994-06-17,196,93,both,Brazil,0,0,750000,2026-05-21,,,https://www.transfermarkt.com/marcao/profil/spieler/476102,transfermarkt+namu,2026-08-29,
+Marcão,1994-06-17,196,93,both,Brazil,0,0,750000,2026-05-21,,adidas Football,https://www.transfermarkt.com/marcao/profil/spieler/476102,transfermarkt+namu+IG,2026-09-06,"boot_sponsor: IG bio @adidasfootball 확인(2026-09)"
 Abdallah Hleihil,2001-01-11,185,,right,Israel,4,0,175000,2026-05-21,,,https://www.transfermarkt.com/abdallah-hleihel/profil/spieler/704072,transfermarkt+fotmob,2026-08-29,foot=FotMob 슈팅분포 추정
 Yago Cariello,1999-07-27,187,87,left,Brazil,0,0,900000,2026-05-21,,,https://www.transfermarkt.com/yago-cariello/profil/spieler/939763,transfermarkt+namu,2026-08-29,
 Stefan Mugoša,1992-02-26,188,81,right,Montenegro,65,16,400000,2026-05-21,,,https://www.transfermarkt.com/stefan-mugosa/profil/spieler/149738,transfermarkt+namu,2026-08-29,
