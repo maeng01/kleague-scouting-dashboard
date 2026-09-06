@@ -225,14 +225,29 @@ elif page == "선수 대시보드":
     with t1:
         st.caption("레이더·막대는 **표본에 빨리 안정되는 '과정' 지표**의 percentile (풀 22명 기준). "
                    "득점률·결정력은 아래에 따로 — 표본에 느리게 안정되는 '결과' 지표.")
+        basis = st.radio(
+            "레이더 기준", ["2026 스냅샷", "최근가중 블렌드 (2026 + 2025, 표본 크기 가중)"],
+            horizontal=True,
+            help="블렌드: w2026 = n26 / (n26 + 0.6·n25). 2026 출전이 적고 2025 표본이 크면 2025 쪽으로 당겨져 "
+                 "'현재 실력' 추정이 안정된다. 2025 데이터 없는 8명은 2026 값 그대로.",
+        )
+        rad_df = data_loader.blended_strikers(strikers_df, prior_df) if basis.startswith("최근가중") else strikers_df
+        rad_row = rad_df.loc[rad_df["Player"] == player].iloc[0]
+        if basis.startswith("최근가중"):
+            n25 = prow.get("nineties_2025") if prow is not None else None
+            if prow is not None and pd.notna(n25) and n25 > 0:
+                w26 = row["90s"] / (row["90s"] + 0.6 * float(n25))
+                st.caption(f"블렌드 가중: 2026 **{w26:.0%}** / 2025 {1-w26:.0%}  (2026 {row['90s']}경기 · 2025 {n25:g}경기)")
+            else:
+                st.caption("2025 데이터 없음 → 2026 스냅샷과 동일.")
         cA, cB = st.columns(2)
         with cA:
             others = ["(비교 없음)"] + [p for p in view["Player"] if p != player]
             cmp_name = st.selectbox("비교 선수", others)
-            cmp_row = None if cmp_name == "(비교 없음)" else df.loc[df["Player"] == cmp_name].iloc[0]
-            st.plotly_chart(snapshot.radar(row, cmp_row))
+            cmp_row = None if cmp_name == "(비교 없음)" else rad_df.loc[rad_df["Player"] == cmp_name].iloc[0]
+            st.plotly_chart(snapshot.radar(rad_row, cmp_row))
         with cB:
-            st.plotly_chart(snapshot.percentile_bars(row))
+            st.plotly_chart(snapshot.percentile_bars(rad_row))
 
         st.markdown("#### 결과 지표 (참고 — 변동성 큼)")
         oc = []
@@ -391,6 +406,11 @@ else:
 
 ### ① Scouting Snapshot
 Per-90 → 풀 내 percentile → 레이더/막대. 90s·신뢰도 티어 항상 병기. 2025 vs 2026 rate 비교.
+
+**최근가중 블렌드** (레이더 기준 토글) — `w2026 = n26 / (n26 + 0.6·n25)`. 2026 반시즌 스냅샷은
+표본이 작아 튀는데, 2025 완주 시즌 표본이 크면 그쪽으로 당겨 '현재 실력' 추정을 안정시킨다.
+예: Tiago(2026 6.4경기 xG/90 0.66 → 2025 16.8경기 반영 후 0.57). 2025 표본이 미미하면(Yago 1.7경기)
+가중이 자동으로 0에 수렴해 2026 값 유지. 원래 기획의 'Current Ability vs 현재 폼' 분리를 데이터로 구현한 부분.
 
 **플레이 아키타입** — 신장 + 드리블/90 + 키패스/90 점수 합으로 **타깃형 / 기동·연결형 / 밸런스형** 라벨.
 공중볼 데이터가 공개로 없어 신장으로 대체한 근사치라 정밀 분류는 아니고, 후보 좁히기·브랜드 매칭

@@ -79,6 +79,52 @@ def load_brand_fit() -> pd.DataFrame:
     return df
 
 
+# 과정 6축의 2025 대응 컬럼 (없으면 2025 블렌드 스킵)
+_BLEND_PAIRS = {
+    "xg_90": "xg_90", "xa_90": "xa_90", "key_passes_90": "key_passes_90",
+    "dribbles_90": "dribbles_90", "SoT_90": "sot_90",
+    # Sh_90 은 2025 레이어에 없음 → 2026 값 그대로 (블렌드 안 함)
+}
+
+
+def blended_strikers(strikers: pd.DataFrame, prior: pd.DataFrame, decay: float = 0.6) -> pd.DataFrame:
+    """과정 6축을 '표본 크기 가중 블렌드'로 재계산 + percentile 재산출.
+
+    w_2026 = n26 / (n26 + decay·n25)  — 2026 출전이 많을수록 2026을 믿고,
+    2025 표본이 클수록(완주 시즌) 그쪽으로 당겨진다. decay(<1)로 옛 시즌을 할인.
+    2025 데이터가 없거나 미미하면 사실상 2026 값.
+    """
+    df = strikers.copy()
+    if prior is None or prior.empty:
+        return df
+    p = prior.set_index("Player")
+    n25_by = p["nineties_2025"].to_dict() if "nineties_2025" in p.columns else {}
+
+    for m26, m25 in _BLEND_PAIRS.items():
+        if m26 not in df.columns or m25 not in p.columns:
+            continue
+        new = []
+        for _, r in df.iterrows():
+            v26 = r.get(m26)
+            n26 = float(r.get("90s", 0) or 0)
+            name = r["Player"]
+            v25 = p.at[name, m25] if name in p.index else None
+            n25 = float(n25_by.get(name, 0) or 0)
+            if v25 is None or pd.isna(v25) or n25 <= 0 or pd.isna(v26):
+                new.append(v26)
+                continue
+            w26 = n26 / (n26 + decay * n25)
+            new.append(round(w26 * float(v26) + (1 - w26) * float(v25), 3))
+        df[m26] = new
+
+    # percentile 재산출 (SNAPSHOT_METRICS 의 pct 컬럼)
+    for m in C.SNAPSHOT_METRICS:
+        key, pct = m["key"], m["pct"]
+        if key in df.columns and df[key].notna().sum() >= 3:
+            df[pct] = (df[key].rank(pct=True) * 100).round(1)
+    return df
+
+
 def load_case_studies() -> list[dict]:
     with open(C.CASE_STUDIES_JSON, encoding="utf-8") as f:
         return json.load(f)

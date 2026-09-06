@@ -40,6 +40,31 @@ def test_pool_is_22_strikers(data):
     assert (strikers["90s"] >= C.MIN_90S_FILTER).all()
 
 
+def test_blend_respects_sample_size(data):
+    """블렌드: 2025 표본이 작으면 2026 가중이 1에 가깝고, 2025 표본이 크면 유의미하게 섞인다."""
+    strikers, prior, _, _ = data
+    bl = data_loader.blended_strikers(strikers, prior)
+    assert len(bl) == len(strikers)
+
+    n25 = prior.set_index("Player")["nineties_2025"].to_dict()
+    small = big = 0
+    for _, r in strikers.iterrows():
+        n, n26 = n25.get(r["Player"], 0), r["90s"]
+        if not n:
+            continue
+        w26 = n26 / (n26 + 0.6 * n)
+        if n < 3:
+            assert w26 > 0.82, f"{r['Player']}: 2025 표본 미미한데 2026 가중 {w26:.2f}"
+            small += 1
+        if n >= 20:
+            assert w26 < 0.65, f"{r['Player']}: 2025 완주 시즌인데 2026 가중 {w26:.2f}"
+            big += 1
+    assert small and big  # 양쪽 케이스가 실제로 존재
+
+    for m_ in C.SNAPSHOT_METRICS:
+        assert bl[m_["pct"]].dropna().between(0, 100).all()
+
+
 def test_percentiles_within_0_100(data):
     strikers, *_ = data
     pct_cols = [c for c in strikers.columns if c.endswith("_pct") or c.endswith("_pct_rank")]
