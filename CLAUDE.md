@@ -171,6 +171,17 @@ base Gls/Ast 대조로 올바른 줄 선택, 없는 파일은 스킵(NaN). `_row
 - 2025 유효슈팅·드리블 7/14 (부수), 2026 전체 피파울 리더보드 (현재 PK 7명)
 - 최근가중 블렌드 뷰(2026×0.6 + 2025×0.4) 미구현 — 현재는 두 시즌 나란히만
 
+### 언론 노출 실측 완료 (2026-09-06) — NAVER API HUB
+- 2026년부터 네이버 검색 API 가 developers.naver.com → **NAVER API HUB(NCP)** 로 이관. 신규는 HUB 만.
+  엔드포인트 `naverapihub.apigw.ntruss.com/search/v1/news`, 헤더 `X-NCP-APIGW-API-KEY-ID`/`-KEY`.
+- 사용자가 HUB Client ID/Secret 발급 → `NCP_API_KEY_ID`/`NCP_API_KEY` env 로 `python -m src.collect_naver` 실행.
+  (키는 커밋 안 함. brand_fit_pilot.csv 의 news_count 값만 커밋 → 배포엔 키 불필요)
+- `src/collect_naver._client()` 가 HUB 키 우선, 없으면 구 `NAVER_CLIENT_ID/SECRET` 폴백.
+- **파일럿 11명 news_count 수집**: 주민규 38211·무고사 18654·말컹(마르캉) 9350·이호재 8744·모따 5662·
+  야고 4459·클리말라 2639·디오구 862·페리어 821·오로보 28·흘레이할 27.
+  → `config.NEWS_COUNT_REF_LOW=40 / HIGH=50000` 로 앵커 조정. media 축이 이제 실측 기반.
+- 질의어 주의: 마르캉→**말컹**(별명), 오로보·흘레이할은 표기 미정착으로 건수가 실제보다 낮음(naver_queries.csv 기록).
+
 ### 배포 + 콘텐츠 보강 (2026-09-06)
 - **배포 완료**: GitHub `github.com/maeng01/kleague-scouting-dashboard` →
   Streamlit Community Cloud `https://kleague-striker-scouting.streamlit.app`.

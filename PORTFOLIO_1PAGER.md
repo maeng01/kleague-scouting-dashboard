@@ -36,8 +36,9 @@
 
 ### 데이터 & 원칙
 
-FBref(기초) + FotMob 리더보드(고급 지표, 21/22) + Transfermarkt·나무위키(bio) + Instagram 공개 페이지(SNS).
-**자동 스크래핑 없음** — 각 사이트 robots.txt / ToS를 준수해 사람이 수집하고 코드는 파싱·재계산만.
+FBref(기초) + FotMob 리더보드(고급 지표, 21/22) + Transfermarkt·나무위키(bio) + Instagram(SNS·참여율)
++ 네이버 뉴스 검색 API(언론 노출 건수, 파일럿 11명).
+**자동 스크래핑 없음** — 각 사이트 robots.txt / ToS를 준수해 공식 API·수동 수집만, 코드는 파싱·재계산.
 percentile은 22명 스트라이커 풀 내부 기준.
 
 ### 한계를 명시하는 것도 결과물의 일부

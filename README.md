@@ -46,10 +46,11 @@
 
 **카테고리 적합도** = 이미지 태그 × 활성화 계수. 7개 업종(스포츠웨어·게임/e스포츠·테크·금융·F&B·여행/라이프스타일·자동차)별 점수.
 
-**언론 노출**은 현재 1–5 수동 버킷이지만, 재현 가능한 지표(네이버 뉴스 검색 `total`(2026~ NAVER API HUB))로
-전환하는 파이프라인을 구축했다 — `news_count` 컬럼이 채워지면 `log10(news_count)` 로 자동 대체
-([`src/collect_naver.py`](src/collect_naver.py), [가이드](data/collect/COLLECT_NAVER.md)).
-네이버 API 앱 등록(Client ID/Secret)이 필요해 값은 아직 미수집.
+**언론 노출**은 1–5 수동 버킷을 **네이버 뉴스 검색 건수로 교체 완료**(파일럿 11명) — NAVER API HUB
+(NCP)의 뉴스 검색 `total`을 고정 질의로 수집, `log10(news_count)`으로 media 축에 반영
+([`src/collect_naver.py`](src/collect_naver.py), [가이드](data/collect/COLLECT_NAVER.md), 질의어 근거
+[`naver_queries.csv`](data/collect/naver_queries.csv)). 주민규 38K · 무고사 19K · 마르캉(말컹) 9K · 디오구 862 등.
+`total`은 전체 기간 누적이라 '최근 화제성'과는 다르고, 외국인 표기 미정착 선수(오로보·흘레이할)는 실제보다 낮게 잡힘.
 
 > Yago: Marketability 68.3 → 게임·e스포츠 75.4 / 스포츠웨어 63.5.
 > 근거 태그: 젊은 유망주·성장 서사, 화려한 플레이·쇼맨십.
