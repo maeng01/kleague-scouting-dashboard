@@ -384,10 +384,10 @@ Per-90 → 풀 내 percentile → 레이더/막대. 90s·신뢰도 티어 항상
 → **Lee Hojae**: 본인 개인 Instagram 없음(팬페이지만) — 도달·참여 축 0, 성장 서사·대표팀 노출로 판단.
 
 **언론 노출(media)** — 현재는 1–5 수동 버킷이지만, 재현 가능한 지표로 전환 준비를 마쳤다:
-`brand_fit_pilot.csv` 에 `news_count`(네이버 검색 API `news.json` 의 `total`)가 채워지면
+`brand_fit_pilot.csv` 에 `news_count`(네이버 뉴스 검색 `total`(2026~ NAVER API HUB))가 채워지면
 `src/brand_fit.py` 가 자동으로 `log10(news_count)` 를 0–100 으로 매핑해 버킷을 대체한다.
-네이버 API 는 앱 등록(Client ID/Secret)이 필요해 아직 값은 비어 있음.
-수집 스크립트 `src/collect_naver.py`, 가이드 `data/collect/COLLECT_NAVER.md`.
+NAVER API HUB(NCP) 애플리케이션 등록 → Client ID/Secret 발급이 필요해 아직 값은 비어 있음.
+수집 스크립트 `src/collect_naver.py`(HUB·구 개발자센터 키 자동 감지), 가이드 `data/collect/COLLECT_NAVER.md`.
 
 ### ③ Agency Recommendation
 과정지표 percentile + 신뢰도 티어 + 연령 + 2025 대비 추세 + marketability → 규칙 기반 강점/리스크/전략/★.

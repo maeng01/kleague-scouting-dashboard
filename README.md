@@ -46,7 +46,7 @@
 
 **카테고리 적합도** = 이미지 태그 × 활성화 계수. 7개 업종(스포츠웨어·게임/e스포츠·테크·금융·F&B·여행/라이프스타일·자동차)별 점수.
 
-**언론 노출**은 현재 1–5 수동 버킷이지만, 재현 가능한 지표(네이버 검색 API `news.json` 의 `total`)로
+**언론 노출**은 현재 1–5 수동 버킷이지만, 재현 가능한 지표(네이버 뉴스 검색 `total`(2026~ NAVER API HUB))로
 전환하는 파이프라인을 구축했다 — `news_count` 컬럼이 채워지면 `log10(news_count)` 로 자동 대체
 ([`src/collect_naver.py`](src/collect_naver.py), [가이드](data/collect/COLLECT_NAVER.md)).
 네이버 API 앱 등록(Client ID/Secret)이 필요해 값은 아직 미수집.
@@ -162,7 +162,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 
 ```
 app.py               Streamlit 엔트리 (5개 페이지: 소개 & 사용법 / 선수 대시보드 / 파일럿 랭킹 / 케이스 스터디 / 방법론 & 한계)
-src/collect_naver.py 언론 노출을 재현 가능하게: 네이버 검색 API news.json 의 total → news_count
+src/collect_naver.py 언론 노출을 재현 가능하게: 네이버 뉴스 검색 total(NAVER API HUB) → news_count
 rebuild.py           수집 파일 → data/processed/ 재생성
 src/config.py        지표·가중치·임계값 ('정답'이 아니라 도메인 지식 기반 초기 가설)
 src/statfiles.py     수집 파일별 {원본 컬럼 → 정규 지표} 매핑

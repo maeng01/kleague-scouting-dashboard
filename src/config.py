@@ -94,8 +94,8 @@ ENGAGEMENT_REF_LOW = 2.0
 ENGAGEMENT_REF_HIGH = 12.0
 
 # 언론 노출: '고정 질의로 뉴스 검색 결과 건수'를 재현 가능한 지표로 삼는다.
-# 권장 소스 = 네이버 검색 API `news.json` 응답의 `total` (질의: 선수 한국어명, 전체 색인 기준).
-#   → 앱 등록(Client ID/Secret) 필요. 스크립트: src/collect_naver.py, 가이드: data/collect/COLLECT_NAVER.md
+# 권장 소스 = 네이버 뉴스 검색 응답의 `total` (질의: 선수 한국어명, 전체 색인 기준).
+#   2026년부터 NAVER API HUB(NCP)에서 발급. 스크립트: src/collect_naver.py, 가이드: data/collect/COLLECT_NAVER.md
 # brand_fit_pilot.csv 에 news_count 가 있으면 log 스케일로 media 점수 산출,
 # 없으면 기존 media_exposure(1~5 수동 버킷)로 fallback.
 NEWS_COUNT_LABEL = "네이버 뉴스 검색 total(전체 기간)"
