@@ -14,10 +14,11 @@ from src import agency, brand_fit, config as C, data_loader, proposal, snapshot
 st.set_page_config(page_title="K리그 스트라이커 스카우팅", page_icon="⚽", layout="wide")
 
 
-@st.cache_data
+# ttl: 소프트리로드가 data_loader 결과를 다시 안 만들어(캐시 키는 _load 소스만 해시) 컬럼 추가 시
+# 스키마 불일치로 죽던 문제 → 1시간마다 자동 만료. 저트래픽 앱이라 CSV 재읽기 비용 무시 가능.
+@st.cache_data(ttl="1h")
 def _load() -> dict:
-    """dict 로 반환 — 필드를 추가해도 호출부 unpack 이 안 깨진다
-    (Streamlit Cloud 소프트리로드가 옛 캐시를 재사용하면서 튜플 개수 불일치로 죽던 문제)."""
+    """dict 로 반환 — 필드를 추가해도 호출부 unpack 이 안 깨진다."""
     strikers = data_loader.load_strikers()
     brand = data_loader.load_brand_fit()
     return {
@@ -151,7 +152,8 @@ elif page == "선수 대시보드":
     squad = c1.selectbox("구단", squads)
     tiers = ["전체"] + [t for t in C.RELIABILITY_ORDER if t in strikers_df["reliability"].values]
     tier = c2.selectbox("신뢰도 티어", tiers)
-    arch_opts = ["전체"] + [a for a in ("타깃형", "기동·연결형", "밸런스형") if a in strikers_df["archetype"].values]
+    _arch_vals = strikers_df["archetype"].values if "archetype" in strikers_df.columns else []
+    arch_opts = ["전체"] + [a for a in ("타깃형", "기동·연결형", "밸런스형") if a in _arch_vals]
     arch = c3.selectbox("아키타입", arch_opts, help="신장 + 드리블/키패스 기반 대략 분류")
     min_90s = c4.slider("최소 90s", 5.0, float(strikers_df["90s"].max()), 5.0, 0.5)
 
