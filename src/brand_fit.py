@@ -67,7 +67,7 @@ def marketability(row: pd.Series) -> Marketability:
         if ec == "rough_estimate":
             notes.append(f"참여율 {eng:g}%는 팔로워 티어 기반 러프 추정치 (직접 카운트 아님).")
         elif ec == "measured_likes_only":
-            notes.append(f"참여율 {eng:g}% = 최근 게시물 좋아요 실측/팔로워. 댓글 비활성 계정이라 실제 참여율은 이보다 높음.")
+            notes.append(f"참여율 {eng:g}% = 최근 게시물 좋아요만 집계(댓글 미포함)/팔로워 → 실제 참여율은 이보다 높음.")
         elif ec == "measured":
             notes.append(f"참여율 {eng:g}% = 최근 게시물 (좋아요+댓글)/팔로워 실측.")
 

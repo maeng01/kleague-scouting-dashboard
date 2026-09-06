@@ -189,8 +189,12 @@ base Gls/Ast 대조로 올바른 줄 선택, 없는 파일은 스킵(NaN). `_row
   - Marcão `markaooficial` (인증·103.4만·adidas football·참여율 3.2%) — mkt 16.8→54
   - Bruno Mota `bmota09` (비인증·8.7K·tapedesign 그립양말·참여율 ~15% 좋아요만) — mkt →63.1
   - 웹검색 핸들 부정확: `hj__lee19` 삭제됨, `brunomotacorreia`=심판. IG 자체 검색으로 재확인해야 함.
-  - 못 찾음/못 잼: Lee Hojae(팬페이지만, 본인 계정 미확인), Abdallah Hleihil(표기 불명),
-    Diogo(풀네임 불명), Vitor Gabriel(`v_gabriel09` 인증·16.9만이지만 좋아요 비공개·파일럿 밖).
+  - 2차(사용자가 링크 제공): Diogo `diogo7`(인증·7.8만·참여율 ~1.3% 낮음·가정적 이미지 강함) — mkt →42
+    → 참여율 실측 **8명**.
+  - 좋아요 비공개라 참여율 미측정(팔로워만): Abdallah Hleihil `abdallahlehel`(인증·1.8만·강원),
+    Vitor Gabriel `v_gabriel09`(인증·16.9만).
+  - **Lee Hojae: 개인 Instagram 없음(사용자 확인). 팬페이지만 존재** → SNS 축 0.
+  - `measured_likes_only` note 문구 수정(댓글 비활성 → 좋아요만 집계).
 
 ## 아직 안 한 것 / 다음 단계
 
