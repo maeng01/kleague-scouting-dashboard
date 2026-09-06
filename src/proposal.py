@@ -76,6 +76,8 @@ def build_docx(
     )
 
     bio_line = []
+    if row.get("archetype") and row.get("archetype") != "—":
+        bio_line.append(f"아키타입 {row['archetype']}")
     if pd.notna(row.get("height_cm")):
         bio_line.append(f"{int(row['height_cm'])}cm")
     if pd.notna(row.get("preferred_foot")):

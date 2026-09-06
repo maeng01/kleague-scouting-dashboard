@@ -26,6 +26,24 @@ def _years_left(contract_until) -> float | None:
     return round((dt - pd.Timestamp.today().normalize()).days / 365, 2)
 
 
+def _archetype(row: pd.Series) -> str:
+    """신장 + 드리블/키패스 점수 합 → 타깃형 / 기동·연결형 / 밸런스형.
+    정밀 분류가 아니라 스카우팅 대화용 라벨 (공중볼 데이터가 없어 신장으로 대체)."""
+    h, dr, kp = row.get("height_cm"), row.get("dribbles_90"), row.get("key_passes_90")
+    if pd.isna(h) or pd.isna(dr):
+        return "—"
+    s = 0
+    s += 2 if h >= 192 else 1 if h >= 188 else -1 if h <= 183 else 0
+    s += 2 if dr <= 0.3 else 1 if dr <= 0.5 else -2 if dr >= 0.9 else -1 if dr >= 0.7 else 0
+    if pd.notna(kp) and kp >= 1.3:
+        s -= 1
+    if s >= C.ARCHETYPE_TARGET_MIN:
+        return "타깃형"
+    if s <= C.ARCHETYPE_MOBILE_MAX:
+        return "기동·연결형"
+    return "밸런스형"
+
+
 def load_strikers() -> pd.DataFrame:
     """2026 스트라이커 22명 (경기력 + percentile + 신뢰도 티어)."""
     df = pd.read_csv(C.STRIKERS_2026_CSV)
@@ -34,6 +52,7 @@ def load_strikers() -> pd.DataFrame:
         lambda n: str(n).split(" ")[-1] if pd.notna(n) else "—"
     )
     df["small_sample"] = df["90s"] < C.SMALL_SAMPLE_90S
+    df["archetype"] = df.apply(_archetype, axis=1)
     # 결정력 = 실득점률 − 기대득점률
     if {"Gls_90", "xg_90"}.issubset(df.columns):
         df["finishing_90"] = (df["Gls_90"] - df["xg_90"]).round(3)

@@ -72,8 +72,16 @@ def build_card(row: pd.Series, mkt: Marketability, fits: list[CategoryFit],
     if pd.notna(boot) and str(boot).strip():
         strengths.append(f"축구화 계약: {str(boot).strip()} — 스포츠웨어 접점 이미 있음")
     h = row.get("height_cm")
-    if pd.notna(h) and float(h) >= 191:
-        strengths.append(f"신장 {int(h)}cm — 타깃형 자원 (세트피스·공중 위협)")
+    arch = row.get("archetype")
+    if arch == "타깃형":
+        strengths.append(
+            f"타깃형 아키타입 ({int(h)}cm) — 세트피스·공중볼·크로스 마무리 강점, "
+            "높이 소구 브랜드/캠페인에 적합"
+        )
+    elif arch == "기동·연결형":
+        strengths.append("기동·연결형 아키타입 — 전방 압박·공간 침투·연계, 다이내믹 이미지")
+    elif pd.notna(h) and float(h) >= 191:
+        strengths.append(f"신장 {int(h)}cm — 공중볼 위협")
     nc = row.get("nt_caps")
     nat = row.get("nationality")
     if pd.notna(nc) and float(nc) >= 10:

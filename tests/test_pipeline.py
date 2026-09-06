@@ -54,6 +54,14 @@ def test_reliability_tiers_are_valid(data):
     assert set(strikers["reliability"]).issubset(set(C.RELIABILITY_ORDER))
 
 
+def test_archetype_labels_valid_and_spread(data):
+    strikers, *_ = data
+    assert set(strikers["archetype"]).issubset({"타깃형", "기동·연결형", "밸런스형", "—"})
+    # 한 라벨이 전부를 먹지는 않아야 (분류가 의미 있으려면)
+    non_na = strikers[strikers["archetype"] != "—"]["archetype"]
+    assert non_na.value_counts().iloc[0] < len(non_na)
+
+
 def test_goals_cross_check(data):
     """base CSV Gls 와 파생 xg_90*90s 이 말이 되는 범위인지 (대략)."""
     strikers, *_ = data

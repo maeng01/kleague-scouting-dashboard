@@ -146,18 +146,22 @@ if page == "소개 & 사용법":
 elif page == "선수 대시보드":
     st.title("선수 상세")
 
-    c1, c2, c3 = st.columns(3)
+    c1, c2, c3, c4 = st.columns(4)
     squads = ["전체"] + sorted(strikers_df["Squad"].dropna().unique())
     squad = c1.selectbox("구단", squads)
     tiers = ["전체"] + [t for t in C.RELIABILITY_ORDER if t in strikers_df["reliability"].values]
     tier = c2.selectbox("신뢰도 티어", tiers)
-    min_90s = c3.slider("최소 90s", 5.0, float(strikers_df["90s"].max()), 5.0, 0.5)
+    arch_opts = ["전체"] + [a for a in ("타깃형", "기동·연결형", "밸런스형") if a in strikers_df["archetype"].values]
+    arch = c3.selectbox("아키타입", arch_opts, help="신장 + 드리블/키패스 기반 대략 분류")
+    min_90s = c4.slider("최소 90s", 5.0, float(strikers_df["90s"].max()), 5.0, 0.5)
 
     view = strikers_df.copy()
     if squad != "전체":
         view = view[view["Squad"] == squad]
     if tier != "전체":
         view = view[view["reliability"] == tier]
+    if arch != "전체":
+        view = view[view["archetype"] == arch]
     view = view[view["90s"] >= min_90s].sort_values("xg_90_pct", ascending=False, na_position="last")
     if view.empty:
         st.info("조건에 맞는 선수가 없습니다.")
@@ -171,9 +175,11 @@ elif page == "선수 대시보드":
     row = df.loc[df["Player"] == player].iloc[0]
     prow = data_loader.prior_row(prior_df, player)
 
+    _arch = row.get("archetype")
+    _arch_txt = f" · {_arch}" if _arch and _arch != "—" else ""
     st.markdown(
         f"### {row['Player']}  \n"
-        f"{row['Squad']} · 스트라이커 · {row['nation_code']} · {row['age_display']} · "
+        f"{row['Squad']} · 스트라이커{_arch_txt} · {row['nation_code']} · {row['age_display']} · "
         f"90s **{row['90s']}** ({row['reliability']}) · {int(row['Gls'])}골 {int(row['Ast'])}도움"
     )
     bio_bits = []
@@ -385,6 +391,10 @@ else:
 
 ### ① Scouting Snapshot
 Per-90 → 풀 내 percentile → 레이더/막대. 90s·신뢰도 티어 항상 병기. 2025 vs 2026 rate 비교.
+
+**플레이 아키타입** — 신장 + 드리블/90 + 키패스/90 점수 합으로 **타깃형 / 기동·연결형 / 밸런스형** 라벨.
+공중볼 데이터가 공개로 없어 신장으로 대체한 근사치라 정밀 분류는 아니고, 후보 좁히기·브랜드 매칭
+(타깃형 → 높이 소구 캠페인) 대화용. 선수 선택 위 필터로도 쓴다.
 
 ### ② Brand Fit & Marketability
 `Marketability = 도달×{C.MARKETABILITY_WEIGHTS['reach']} + 참여율×{C.MARKETABILITY_WEIGHTS['engagement']}
