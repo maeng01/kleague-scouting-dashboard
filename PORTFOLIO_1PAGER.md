@@ -3,7 +3,7 @@
 **한 줄 요약** — 공개 데이터만으로 "이 선수를 어떻게 관리하고 어떤 브랜드와 연결할지"를
 근거와 함께 제시하는 의사결정 보조 대시보드. 스포츠 에이전시 / 브랜드 엔도스먼트 직무 지원용.
 
-**라이브 데모** · https://kleague-scouting-dashboard-bmvjakcgqdfbymw5bfdwkj.streamlit.app
+**라이브 데모** · https://kleague-striker-scouting.streamlit.app
 **코드** · github.com/maeng01/kleague-scouting-dashboard
 
 ---
