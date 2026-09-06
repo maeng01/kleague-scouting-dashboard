@@ -390,6 +390,9 @@ Per-90 → 풀 내 percentile → 레이더/막대. 90s·신뢰도 티어 항상
 `Marketability = 도달×{C.MARKETABILITY_WEIGHTS['reach']} + 참여율×{C.MARKETABILITY_WEIGHTS['engagement']}
  + 언론노출×{C.MARKETABILITY_WEIGHTS['media']} + 팬덤폭×{C.MARKETABILITY_WEIGHTS['fanbase']}` (참여율 최대 가중).
 카테고리 적합도 = 이미지 태그 친화도(천장) × 활성화계수(0.35 + 0.65×marketability/100).
+파일럿 11명이 대부분 '외국인 저니맨 스트라이커'라 `global_journey`·`hardworking_pro` 태그가 겹쳐,
+같은 카테고리(여행·금융)로 몰리는 경향이 있다. 절대 순위보다 **선수별 상대 순위와 근거 태그**를 보는 게 맞다.
+친화도 행렬(`config.BRAND_CATEGORIES`)은 2026-09 파일럿 분포로 한 차례 보정함(gaming 이 기본값 되던 문제).
 
 **참여율 실측 (파일럿 8명)** — IG 게시물별 좋아요(±댓글)/팔로워, 최근 3–10건 평균:
 | 선수 | 팔로워 | 참여율 | 메모 |

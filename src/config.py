@@ -112,16 +112,18 @@ BRAND_CATEGORIES = {
         "label": "스포츠웨어",
         "baseline": 0.45,
         "affinity": {
-            "national_team": 1.0, "flair_entertainer": 0.8, "young_prospect": 0.8,
-            "hardworking_pro": 0.7, "global_journey": 0.5, "local_hero": 0.4,
+            "national_team": 1.0, "flair_entertainer": 0.85, "young_prospect": 0.85,
+            "hardworking_pro": 0.75, "global_journey": 0.55, "local_hero": 0.45,
         },
     },
     "gaming": {
+        # young_prospect·flair_entertainer 가 파일럿에서 가장 흔한 태그라 둘 다 최고치면
+        # gaming 이 사실상 기본값이 됨 → 0.85/0.8 로 낮춰 스포츠웨어와 붙게 조정 (2026-09)
         "label": "게임 · e스포츠",
         "baseline": 0.35,
         "affinity": {
-            "young_prospect": 1.0, "flair_entertainer": 0.9, "global_journey": 0.6,
-            "national_team": 0.4,
+            "young_prospect": 0.85, "flair_entertainer": 0.8, "global_journey": 0.6,
+            "national_team": 0.45,
         },
     },
     "tech": {
@@ -136,7 +138,7 @@ BRAND_CATEGORIES = {
         "label": "금융 · 보험",
         "baseline": 0.40,
         "affinity": {
-            "veteran_leader": 1.0, "hardworking_pro": 0.9, "family_man": 0.8,
+            "veteran_leader": 1.0, "hardworking_pro": 0.85, "family_man": 0.8,
             "national_team": 0.7, "local_hero": 0.5,
         },
     },
@@ -149,10 +151,12 @@ BRAND_CATEGORIES = {
         },
     },
     "travel_lifestyle": {
+        # global_journey 가 파일럿(외국인 스트라이커) 대부분에게 붙어서, flair 까지 높게 주면
+        # 여행이 기본값이 됨. 여행 브랜드의 핵심은 '여정'이지 '쇼맨십'이 아니라 flair 0.8→0.6 (2026-09)
         "label": "여행 · 라이프스타일",
         "baseline": 0.40,
         "affinity": {
-            "global_journey": 1.0, "flair_entertainer": 0.8, "family_man": 0.7,
+            "global_journey": 1.0, "family_man": 0.7, "flair_entertainer": 0.6,
             "young_prospect": 0.5,
         },
     },

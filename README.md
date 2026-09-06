@@ -1,5 +1,7 @@
 # K리그 스트라이커 스카우팅 & 브랜드 적합도 대시보드 (파일럿)
 
+[![CI](https://github.com/maeng01/kleague-scouting-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/maeng01/kleague-scouting-dashboard/actions/workflows/ci.yml)
+
 > **"이 선수를 어떻게 관리하고, 어떤 브랜드와 연결할 것인가"** 를 공개 데이터로 뒷받침하는 의사결정 보조 도구.
 > 스포츠 에이전시 / 브랜드 엔도스먼트 직무 지원용 포트폴리오.
 
