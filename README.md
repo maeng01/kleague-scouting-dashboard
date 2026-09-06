@@ -163,11 +163,20 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/streamlit run app.py
 ```
 
+## 테스트
+
+```bash
+pip install -r requirements-dev.txt
+python rebuild.py     # data/processed/*.csv 생성
+pytest -q             # 18개: 풀=22명 · percentile 0~100 · Marketability 범위 · 제안서 생성 · 빌드 멱등성 등
+```
+
+`push`/`PR` 마다 GitHub Actions(`.github/workflows/ci.yml`)가 `rebuild.py` + `pytest` 를 돌린다.
+
 ## 코드 구조
 
 ```
 app.py               Streamlit 엔트리 (5개 페이지: 소개 & 사용법 / 선수 대시보드 / 파일럿 랭킹 / 케이스 스터디 / 방법론 & 한계)
-src/collect_naver.py 언론 노출을 재현 가능하게: 네이버 뉴스 검색 total(NAVER API HUB) → news_count
 rebuild.py           수집 파일 → data/processed/ 재생성
 src/config.py        지표·가중치·임계값 ('정답'이 아니라 도메인 지식 기반 초기 가설)
 src/statfiles.py     수집 파일별 {원본 컬럼 → 정규 지표} 매핑
@@ -178,9 +187,12 @@ src/snapshot.py      레이더 / percentile 막대 / 시즌 비교 (Plotly)
 src/brand_fit.py     Marketability + 카테고리 적합도
 src/agency.py        강점 / 리스크 / 전략 / 우선순위 규칙
 src/proposal.py      스폰서 제안서 초안 .docx 생성
+src/collect_naver.py 언론 노출 건수 + 뉴스 타임라인 수집 (NAVER API HUB)
 data/name_map.csv    FotMob 로마자명 → 기초 CSV Player 명 매핑
+tests/               pytest 회귀 테스트 (18개)
+.github/workflows/   CI (rebuild + pytest)
 ```
 
 ## 기술 스택
 
-Python · Streamlit · Plotly · pandas · python-docx
+Python · Streamlit · Plotly · pandas · python-docx · pytest · GitHub Actions

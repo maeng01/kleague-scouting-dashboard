@@ -13,6 +13,19 @@ import pandas as pd
 from . import config as C
 
 
+def _years_left(contract_until) -> float | None:
+    """계약 만료일까지 남은 연수 (오늘 기준). 연도만 있으면 연말로 간주."""
+    if pd.isna(contract_until) or str(contract_until).strip() in ("", "-"):
+        return None
+    s = str(contract_until).strip()
+    dt = pd.to_datetime(s, errors="coerce")
+    if pd.isna(dt) and s[:4].isdigit():
+        dt = pd.Timestamp(int(s[:4]), 12, 31)
+    if pd.isna(dt):
+        return None
+    return round((dt - pd.Timestamp.today().normalize()).days / 365, 2)
+
+
 def load_strikers() -> pd.DataFrame:
     """2026 스트라이커 22명 (경기력 + percentile + 신뢰도 티어)."""
     df = pd.read_csv(C.STRIKERS_2026_CSV)
@@ -24,6 +37,9 @@ def load_strikers() -> pd.DataFrame:
     # 결정력 = 실득점률 − 기대득점률
     if {"Gls_90", "xg_90"}.issubset(df.columns):
         df["finishing_90"] = (df["Gls_90"] - df["xg_90"]).round(3)
+    # 계약 잔여연수는 '오늘' 기준이라 런타임 계산 (빌드 CSV 에 넣으면 날짜마다 drift)
+    if "contract_until" in df.columns:
+        df["contract_years_left"] = df["contract_until"].map(_years_left)
     return df
 
 

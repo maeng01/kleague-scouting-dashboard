@@ -54,7 +54,7 @@ def _row_goal_assist(r: dict[str, str]) -> tuple[float | None, float | None]:
     return g, a
 
 
-def _collect_season(season: int, players: set[str], nmap: dict[str, str],
+def _collect_season(season: int, players: list[str], nmap: dict[str, str],
                     report: list[str], ref: pd.DataFrame) -> pd.DataFrame:
     """해당 시즌의 등록된 스탯 파일들을 파싱해 player 기준 wide DataFrame.
 
@@ -141,7 +141,7 @@ def main() -> int:
     base.columns = [c.strip().lstrip("﻿") for c in base.columns]
     pool = base[base["Pos"].isin(POOL_POS) & (base["90s"] >= MIN_90S)].copy()
     pool["age_years"] = pool["Age"].str.slice(0, 2).astype(float)
-    players = set(pool["Player"])
+    players = list(dict.fromkeys(pool["Player"]))   # 중복 제거 + 순서 유지 (set 은 프로세스마다 순서 달라져 CSV 컬럼이 흔들림)
     report.append(f"\n## 풀\nPos∈{POOL_POS}, 90s≥{MIN_90S} → **{len(players)}명**\n")
 
     nmap = _name_map()
@@ -186,17 +186,7 @@ def main() -> int:
                             "nt_caps", "nt_goals", "market_value_eur", "market_value_asof",
                             "contract_until", "boot_sponsor"] if c in bio.columns]
         df = df.merge(bio[["Player"] + keep], on="Player", how="left")
-        if "contract_until" in df:
-            today = pd.Timestamp.today().normalize()
-            def _yrs_left(v):
-                if pd.isna(v) or str(v).strip() in ("", "-"):
-                    return None
-                s = str(v).strip()
-                dt = pd.to_datetime(s, errors="coerce")
-                if pd.isna(dt) and s[:4].isdigit():
-                    dt = pd.Timestamp(int(s[:4]), 12, 31)   # 연도만 있으면 연말로
-                return round((dt - today).days / 365, 2) if pd.notna(dt) else None
-            df["contract_years_left"] = df["contract_until"].map(_yrs_left)
+        # contract_years_left 는 '오늘' 기준이라 CSV 에 안 굽는다 → data_loader.load_strikers 에서 계산
         filled = df["dob"].notna().sum() if "dob" in df else 0
         report.append(f"\n### bio.csv\n- 채워진 선수: {filled}/{len(df)}")
 
@@ -208,6 +198,7 @@ def main() -> int:
             pct_cols.append(col)
     df["radar_ready"] = df[[f"{c}_pct" for c in pct_cols]].notna().all(axis=1) if pct_cols else False
 
+    df = df.sort_values("Player").reset_index(drop=True)   # 결정적 행 순서 (CI diff 안정)
     df.to_csv(PROCESSED / "strikers_2026.csv", index=False, encoding="utf-8-sig")
     report.append(f"\n→ `data/processed/strikers_2026.csv` ({len(df)}행)")
     report.append(f"\n### 2026 지표별 결측")
@@ -240,6 +231,7 @@ def main() -> int:
         for col in ["xg_90", "xa_90", "key_passes_90", "dribbles_90", "sot_90"]:
             if col in s25 and s25[col].notna().sum() >= 3:
                 s25[f"{col}_pct"] = (s25[col].rank(pct=True) * 100).round(1)
+        s25 = s25.sort_values("Player").reset_index(drop=True)
         s25.to_csv(PROCESSED / "strikers_2025.csv", index=False, encoding="utf-8-sig")
         report.append(f"\n→ `data/processed/strikers_2025.csv` — 2025 기록 있는 풀 선수 **{len(s25)}명**")
         report.append(f"  ({', '.join(sorted(s25['Player']))})")

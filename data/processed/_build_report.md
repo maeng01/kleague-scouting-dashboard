@@ -39,8 +39,8 @@ Pos∈['FW'], 90s≥5 → **22명**
 - **dribbles_90**: 21/22 — 결측: Kong Minhyu
 - **big_chances_created**: 21/22 — 결측: Kong Minhyu
 - **big_chances_missed**: 21/22 — 결측: Kong Minhyu
-- **fouls_drawn_90**: 7/22 — 결측: Abdallah Hleihil, Tiago Orobó, Patryk Klimala, Breno Herculano, Vitor Gabriel, Joo Min-kyu, Kim Sinjin, Jeong Jaemin, Lee Kunhee, Kong Minhyu, Bruno Mota, Hólmbert Friðjónsson, Choe Byeongchan, Kim Gun-hee, Lee Sang-heon
-- **shot_accuracy_pct**: 19/22 — 결측: Jhon Montaño, Kong Minhyu, Kim Gun-hee
+- **fouls_drawn_90**: 7/22 — 결측: Abdallah Hleihil, Breno Herculano, Bruno Mota, Choe Byeongchan, Hólmbert Friðjónsson, Jeong Jaemin, Joo Min-kyu, Kim Gun-hee, Kim Sinjin, Kong Minhyu, Lee Kunhee, Lee Sang-heon, Patryk Klimala, Tiago Orobó, Vitor Gabriel
+- **shot_accuracy_pct**: 19/22 — 결측: Jhon Montaño, Kim Gun-hee, Kong Minhyu
 
 ## 2025 스탯 파일 (직전 시즌)
 - ✅ `kleague1_2025_xg_player_stats.md` → 풀 매칭 14/22명, 지표 ['goals', 'xg']
