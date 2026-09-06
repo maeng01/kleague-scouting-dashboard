@@ -3,7 +3,7 @@
 > **"이 선수를 어떻게 관리하고, 어떤 브랜드와 연결할 것인가"** 를 공개 데이터로 뒷받침하는 의사결정 보조 도구.
 > 스포츠 에이전시 / 브랜드 엔도스먼트 직무 지원용 포트폴리오.
 
-**라이브 데모:** <!-- 배포 후 여기에 https://....streamlit.app 링크 -->
+**라이브 데모:** https://kleague-scouting-dashboard-bmvjakcgqdfbymw5bfdwkj.streamlit.app
 **대상:** 2026 K리그1 스트라이커 22명 (`Pos=FW`, 90분 환산 출전 ≥ 5)
 
 ---
