@@ -185,9 +185,12 @@ base Gls/Ast 대조로 올바른 줄 선택, 없는 파일은 스킵(NaN). `_row
   `config.NEWS_COUNT_REF_LOW/HIGH`(30/3000). `src/collect_naver.py`(네이버 검색 API `news.json` total,
   env NAVER_CLIENT_ID/SECRET), `data/collect/naver_queries.csv`, `data/collect/COLLECT_NAVER.md`.
   **값은 미수집** — 네이버 앱 등록(Client ID/Secret)은 사용자만 가능. Google News RSS 대안은 노이즈 커서 폐기.
-- **참여율 확대 실패**: 2026-09 Instagram 이 비로그인 프로필/게시물 접근 전면 차단(og:description 트릭 무효).
-  8월엔 됐으나 지금은 로그인 세션(Claude in Chrome 등) 없이는 추가 실측 불가. 파일럿 5명 유지.
-  Lee Hojae IG(@hj__lee19), Bruno Mota(@brunomotacorreia) 핸들은 확인됨 — 측정만 못 함.
+- **참여율 확대 (Claude in Chrome 로그인 세션, 2026-09-06)**: 5명 → **7명**.
+  - Marcão `markaooficial` (인증·103.4만·adidas football·참여율 3.2%) — mkt 16.8→54
+  - Bruno Mota `bmota09` (비인증·8.7K·tapedesign 그립양말·참여율 ~15% 좋아요만) — mkt →63.1
+  - 웹검색 핸들 부정확: `hj__lee19` 삭제됨, `brunomotacorreia`=심판. IG 자체 검색으로 재확인해야 함.
+  - 못 찾음/못 잼: Lee Hojae(팬페이지만, 본인 계정 미확인), Abdallah Hleihil(표기 불명),
+    Diogo(풀네임 불명), Vitor Gabriel(`v_gabriel09` 인증·16.9만이지만 좋아요 비공개·파일럿 밖).
 
 ## 아직 안 한 것 / 다음 단계
 
