@@ -64,12 +64,18 @@ export NCP_API_KEY=발급받은_Client_Secret
 ### 6. 실행
 
 ```bash
-python -m src.collect_naver --dry-run   # 건수만 확인
-python -m src.collect_naver             # brand_fit_pilot.csv 의 news_count 갱신
+python -m src.collect_naver --dry-run    # 출력만 확인
+python -m src.collect_naver              # news_count + 뉴스 타임라인 둘 다 갱신
+python -m src.collect_naver --news-only  # 타임라인만 갱신 (건수는 그대로)
 ```
 
-앱은 자동 반영 (재빌드 불필요). `news_count` 가 채워지면 `src/brand_fit.py` 가
-`media_exposure` 버킷 대신 `log10(news_count)` 를 0~100 으로 매핑해 Marketability 에 반영한다.
+두 가지를 수집한다:
+- **`news_count`** → `data/brand_fit_pilot.csv` 컬럼. `src/brand_fit.py` 가 `media_exposure`
+  버킷 대신 `log10(news_count)` 를 0~100 으로 매핑해 Marketability 에 반영.
+- **뉴스 타임라인** → `data/collect/player_news.json` (선수별 최근 헤드라인 8건: 제목·날짜·매체·링크).
+  app 선수 페이지의 "📰 최근 뉴스" 섹션에 **수집 시점 스냅샷**으로 표시된다(스탯 아님, 맥락).
+
+앱은 자동 반영 (재빌드 불필요). 타임라인은 시간이 지나면 낡으므로 갱신하려면 재실행.
 
 ### 7. 앵커 조정
 

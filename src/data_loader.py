@@ -49,6 +49,16 @@ def load_case_studies() -> list[dict]:
         return json.load(f)
 
 
+def load_player_news() -> dict[str, dict]:
+    """선수별 최근 뉴스 타임라인 스냅샷 (src/collect_naver.py 로 생성). 없으면 빈 dict."""
+    path = C.DATA_DIR / "collect" / "player_news.json"
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
+
+
 def merge(strikers: pd.DataFrame, brand: pd.DataFrame) -> pd.DataFrame:
     return strikers.merge(brand, left_on="Player", right_on="player", how="left")
 

@@ -20,10 +20,13 @@ def _load():
     prior = data_loader.load_strikers_prior()
     brand = data_loader.load_brand_fit()
     merged = data_loader.merge(strikers, brand)
-    return strikers, prior, brand, merged, data_loader.load_case_studies()
+    return (
+        strikers, prior, brand, merged,
+        data_loader.load_case_studies(), data_loader.load_player_news(),
+    )
 
 
-strikers_df, prior_df, brand_df, df, case_studies = _load()
+strikers_df, prior_df, brand_df, df, case_studies, player_news = _load()
 PILOT = set(brand_df["player"])
 
 # ---------------------------------------------------------------------------
@@ -184,6 +187,18 @@ elif page == "선수 대시보드":
     if bio_bits:
         st.caption(" · ".join(bio_bits) + "  — Transfermarkt (2026-05 기준)")
     _reliability_note(row)
+
+    _news = player_news.get(player)
+    if _news and _news.get("items"):
+        with st.expander(f"📰 최근 뉴스 {len(_news['items'])}건  ·  {_news['asof']} 기준", expanded=False):
+            st.caption(
+                "네이버 뉴스 검색 최신순 헤드라인 (스탯이 아니라 맥락 — 부상·이적설·대표팀·연속골 등). "
+                f"질의어: `{_news.get('query','')}`"
+            )
+            for it in _news["items"]:
+                src = f" · {it['source']}" if it.get("source") else ""
+                title = f"[{it['title']}]({it['url']})" if it.get("url") else it["title"]
+                st.markdown(f"- `{it['date']}`{src} — {title}")
 
     t1, t2, t3 = st.tabs(["① Scouting Snapshot", "② Brand Fit & Marketability", "③ Agency Recommendation"])
 
