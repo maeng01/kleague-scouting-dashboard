@@ -26,7 +26,7 @@ def _h(doc: Document, text: str):
     run.bold = True
     run.font.size = Pt(12)
     run.font.color.rgb = _ACCENT
-    p.space_after = Pt(2)
+    p.paragraph_format.space_after = Pt(2)
     return p
 
 

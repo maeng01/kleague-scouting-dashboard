@@ -15,18 +15,28 @@ st.set_page_config(page_title="K리그 스트라이커 스카우팅", page_icon=
 
 
 @st.cache_data
-def _load():
+def _load() -> dict:
+    """dict 로 반환 — 필드를 추가해도 호출부 unpack 이 안 깨진다
+    (Streamlit Cloud 소프트리로드가 옛 캐시를 재사용하면서 튜플 개수 불일치로 죽던 문제)."""
     strikers = data_loader.load_strikers()
-    prior = data_loader.load_strikers_prior()
     brand = data_loader.load_brand_fit()
-    merged = data_loader.merge(strikers, brand)
-    return (
-        strikers, prior, brand, merged,
-        data_loader.load_case_studies(), data_loader.load_player_news(),
-    )
+    return {
+        "strikers": strikers,
+        "prior": data_loader.load_strikers_prior(),
+        "brand": brand,
+        "merged": data_loader.merge(strikers, brand),
+        "case_studies": data_loader.load_case_studies(),
+        "player_news": data_loader.load_player_news(),
+    }
 
 
-strikers_df, prior_df, brand_df, df, case_studies, player_news = _load()
+_D = _load()
+strikers_df = _D["strikers"]
+prior_df = _D["prior"]
+brand_df = _D["brand"]
+df = _D["merged"]
+case_studies = _D["case_studies"]
+player_news = _D["player_news"]
 PILOT = set(brand_df["player"])
 
 # ---------------------------------------------------------------------------
@@ -229,7 +239,9 @@ elif page == "선수 대시보드":
 
         fig = snapshot.season_compare_bars(row, prow)
         if fig is not None:
-            st.markdown(f"#### 2025 → 2026 추세  ·  2025 {int(prow['matches'])}경기 {int(prow['minutes'])}분")
+            _m, _min = prow.get("matches"), prow.get("minutes")
+            _out = "2025 출전량 미상" if pd.isna(_m) or pd.isna(_min) else f"2025 {int(_m)}경기 {int(_min)}분"
+            st.markdown(f"#### 2025 → 2026 추세  ·  {_out}")
             st.plotly_chart(fig)
         else:
             st.caption("2025 완료 시즌 데이터 없음 (2026 신규 영입이거나 직전 시즌 K리그1 미출전).")

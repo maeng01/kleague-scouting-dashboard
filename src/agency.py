@@ -63,7 +63,7 @@ def build_card(row: pd.Series, mkt: Marketability, fits: list[CategoryFit],
                     risks.append(f"{lab} 전년 대비 하락 ({v25:.2f}→{v26:.2f})")
 
     # ---- 강점: 마케팅 -------------------------------------------------
-    if mkt.confidence != "제한적(SNS 미확인)" and mkt.score >= 55:
+    if mkt.has_sns and mkt.score >= 55:
         strengths.append(f"SNS 도달·참여 양호 (marketability {mkt.score})")
     sponsors = row.get("existing_sponsors")
     if pd.notna(sponsors) and str(sponsors).strip():
@@ -98,7 +98,7 @@ def build_card(row: pd.Series, mkt: Marketability, fits: list[CategoryFit],
     mv = row.get("market_value_eur")
     if pd.notna(mv) and float(mv) <= 250000 and _process_score(row) >= 55:
         risks.append(f"시장가치 €{int(mv/1000)}k로 저평가 대비 경기 기여 양호 — 조기 재계약으로 가치 고정 검토")
-    if mkt.confidence == "제한적(SNS 미확인)":
+    if not mkt.has_sns:
         risks.append("공개 SNS 미확인 — 콘텐츠 자산·팬 커뮤니케이션 채널부터 구축해야 함")
     elif mkt.score < 40:
         risks.append("퍼블릭 프로필 약함 — 브랜드 제안 전에 SNS 활성화 선행 필요")
@@ -124,7 +124,7 @@ def build_card(row: pd.Series, mkt: Marketability, fits: list[CategoryFit],
 
     if tier.startswith("낮음"):
         strategies.append("다음 5–10경기 지표 추이 확인 후 계약 조건 재협상 트리거 설정")
-    if mkt.confidence == "제한적(SNS 미확인)" or mkt.score < 50:
+    if not mkt.has_sns or mkt.score < 50:
         strategies.append("개인 SNS 채널 개설·정비 → 훈련 루틴·비하인드·팬 Q&A 정기 콘텐츠")
     else:
         strategies.append("숏폼(득점 장면·매치데이 브이로그) 강화로 참여율 방어")
@@ -154,7 +154,7 @@ def build_card(row: pd.Series, mkt: Marketability, fits: list[CategoryFit],
 
 
 def _priority(proc: float, mkt: Marketability, age, tier: str) -> tuple[int, str]:
-    market = mkt.score if mkt.confidence != "제한적(SNS 미확인)" else 25.0
+    market = mkt.score if mkt.has_sns else 25.0
     age_bonus = 0.0
     if pd.notna(age):
         age_bonus = 15 if age <= 23 else 8 if age <= 27 else -10 if age >= 33 else 0
@@ -163,7 +163,7 @@ def _priority(proc: float, mkt: Marketability, age, tier: str) -> tuple[int, str
     if tier.startswith("낮음"):
         composite -= 12
         pen = " (표본 작아 하향)"
-    if mkt.confidence == "제한적(SNS 미확인)":
+    if not mkt.has_sns:
         composite -= 6
     stars = (5 if composite >= 78 else 4 if composite >= 64 else 3 if composite >= 50
              else 2 if composite >= 38 else 1)

@@ -19,7 +19,9 @@ from . import config as C
 class Marketability:
     score: float
     components: dict[str, float]
-    confidence: str          # "낮음" / "보통" / "제한적(SNS 미확인)"
+    confidence: str          # 표시용 문자열. "낮음"/"보통"/"높음(참여율 실측)"/"제한적(SNS 미확인)"
+    has_sns: bool = False     # 로직 분기용 — confidence 문자열을 비교하지 말 것
+    measured: bool = False    # 참여율이 실측(추정 아님)인지
     notes: list[str] = field(default_factory=list)
 
 
@@ -71,6 +73,8 @@ def marketability(row: pd.Series) -> Marketability:
         elif ec == "measured":
             notes.append(f"참여율 {eng:g}% = 최근 게시물 (좋아요+댓글)/팔로워 실측.")
 
+    # 언론 노출: news_count(네이버 뉴스 검색 total) 가 1순위. 파일럿 11명은 전부 있다.
+    # media_exposure(1~5 수동 버킷)는 naver_queries.csv 에 질의어가 없는 선수를 위한 fallback.
     news_count = row.get("news_count")
     if pd.notna(news_count) and float(news_count) > 0:
         lo = math.log10(C.NEWS_COUNT_REF_LOW)
@@ -81,7 +85,7 @@ def marketability(row: pd.Series) -> Marketability:
         )
     elif pd.notna(media):
         media_score = _lin(float(media), 1, 5)
-        notes.append("언론 노출 = 1~5 수동 버킷 (재현 가능한 뉴스 건수로 대체 예정).")
+        notes.append("언론 노출 = 1~5 수동 버킷 (fallback — 이 선수는 뉴스 검색 건수 미수집).")
     else:
         media_score = 30.0
     fanbase_score = C.FANBASE_BREADTH_SCORE.get(str(breadth), 45.0)
@@ -94,11 +98,12 @@ def marketability(row: pd.Series) -> Marketability:
         + fanbase_score * w["fanbase"]
     )
 
+    measured = str(row.get("engagement_confidence")).startswith("measured")
     if not has_sns:
         # SNS 미확인이면 reach/engagement 축이 비어 점수가 구조적으로 눌림 → 명시
         confidence = "제한적(SNS 미확인)"
         notes.append("공개 개인 SNS를 특정하지 못해 도달·참여 축이 0으로 처리됨. 점수를 절대 비교에 쓰지 말 것.")
-    elif str(row.get("engagement_confidence")).startswith("measured"):
+    elif measured:
         confidence = "높음(참여율 실측)"
     elif str(row.get("followers_confidence")) == "verified":
         confidence = "보통"
@@ -115,6 +120,8 @@ def marketability(row: pd.Series) -> Marketability:
             "팬덤 폭": round(fanbase_score, 1),
         },
         confidence=confidence,
+        has_sns=bool(has_sns),
+        measured=bool(measured),
         notes=notes,
     )
 

@@ -204,6 +204,10 @@ def main() -> None:
             lambda row: counts.get(row["player"], row.get("news_count")), axis=1
         )
         pilot["news_count_asof"] = today
+        # NaN 있는 정수 컬럼이 float(29600.0)로 새는 걸 방지 — nullable Int64
+        for c in ("followers", "media_exposure", "news_count"):
+            if c in pilot.columns:
+                pilot[c] = pd.to_numeric(pilot[c], errors="coerce").astype("Int64")
         pilot.to_csv(C.BRAND_FIT_CSV, index=False)
         print(f"저장: {C.BRAND_FIT_CSV} ({len(counts)}명 news_count 갱신)")
 
