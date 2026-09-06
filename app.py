@@ -189,16 +189,19 @@ elif page == "선수 대시보드":
     _reliability_note(row)
 
     _news = player_news.get(player)
-    if _news and _news.get("items"):
-        with st.expander(f"📰 최근 뉴스 {len(_news['items'])}건  ·  {_news['asof']} 기준", expanded=False):
+    _items = (_news or {}).get("items", [])
+    if len(_items) >= 3:
+        with st.expander(f"📰 최근 뉴스 {len(_items)}건  ·  {_news['asof']} 수집", expanded=False):
             st.caption(
-                "네이버 뉴스 검색 최신순 헤드라인 (스탯이 아니라 맥락 — 부상·이적설·대표팀·연속골 등). "
-                f"질의어: `{_news.get('query','')}`"
+                "네이버 뉴스 검색(관련도순) 중 **제목에 선수명이 든 기사**만, 최신순. "
+                "스탯이 아니라 맥락 — 득점·부상·이적·대표팀 신호. 수집 시점 스냅샷이라 날짜를 함께 본다."
             )
-            for it in _news["items"]:
+            for it in _items:
                 src = f" · {it['source']}" if it.get("source") else ""
                 title = f"[{it['title']}]({it['url']})" if it.get("url") else it["title"]
                 st.markdown(f"- `{it['date']}`{src} — {title}")
+    elif _news is not None:
+        st.caption("📰 최근 뉴스: 제목에 선수명이 직접 언급된 국내 기사가 최근 거의 없음 (팀 소식 위주).")
 
     t1, t2, t3 = st.tabs(["① Scouting Snapshot", "② Brand Fit & Marketability", "③ Agency Recommendation"])
 
@@ -407,10 +410,16 @@ Per-90 → 풀 내 percentile → 레이더/막대. 90s·신뢰도 티어 항상
 | 무고사 | 18,654 | 이호재 | 8,744 |
 | 모따(Bruno) | 5,662 | 야고 | 4,459 |
 | 클리말라 | 2,639 | 디오구 | 862 |
-| 페리어 | 821 | 오로보·흘레이할 | ~30 (2026 신규·역할 선수, 노출 미미) |
+| 페리어 | 821 | 디오고 | 1,326 |
+| 오로보·흘레이할 | ~30 (2026 신규·역할 선수, 노출 미미) | | |
 
 질의어·표기 근거는 `data/collect/naver_queries.csv`, 수집 스크립트 `src/collect_naver.py`,
 가이드 `data/collect/COLLECT_NAVER.md`. `total` 은 기간 필터가 없어 '최근 폼'이 아니라 '누적 인지도'.
+
+**최근 뉴스 타임라인** (선수 페이지) — 같은 API 로 관련도순 헤드라인을 받아 **제목에 선수명이 든
+기사만** 골라 최신 6건 표시. 스탯이 아니라 맥락(득점·부상·이적·대표팀). 이호재 다름슈타트
+데뷔골, 디오고 1골1도움, 야고 라운드 MVP 등. 제목 언급이 얇은 선수(무고사·마르캉·페리어·흘레이할)는 미표시 —
+"국내 언론에 선수 개인으로는 잘 안 나온다"는 것 자체가 신호. 스탯 추출은 안 함(API 가 본문을 안 줌).
 
 ### ③ Agency Recommendation
 과정지표 percentile + 신뢰도 티어 + 연령 + 2025 대비 추세 + marketability → 규칙 기반 강점/리스크/전략/★.

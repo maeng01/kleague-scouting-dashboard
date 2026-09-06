@@ -27,7 +27,8 @@
      export NCP_API_KEY=yyyy
    (구 developers.naver.com 키를 쓰는 유예 대상이면 NAVER_CLIENT_ID/SECRET 로 넣으면
     자동으로 구 엔드포인트로 폴백한다)
-3. 질의어는 data/collect/naver_queries.csv 에서 읽는다 (player, query_ko).
+3. 질의어는 data/collect/naver_queries.csv 에서 읽는다
+   (player, count_query=건수용, news_query=타임라인용, news_filter=제목 필수 토큰).
 
 실행:
     python -m src.collect_naver               # news_count + 뉴스 타임라인 갱신
@@ -118,17 +119,35 @@ def news_total(query: str, base: str, headers: dict[str, str]) -> int:
     return int(_get(base, headers, query=query, display=1)["total"])
 
 
-def news_recent(query: str, base: str, headers: dict[str, str], n: int = 8) -> list[dict]:
-    items = _get(base, headers, query=query, display=n, sort="date").get("items", [])
-    out = []
+def _words(t: str) -> set[str]:
+    return set(re.findall(r"[가-힣]{2,}", t))
+
+
+def news_recent(
+    query: str, base: str, headers: dict[str, str],
+    filters: list[str] | None = None, keep: int = 6,
+) -> list[dict]:
+    """관련도순 최대 30건 → **제목**에 필터 토큰이 모두 든 기사만(팀 롤 소식 컷) →
+    신디케이트 중복(제목 단어 자카드 > 0.45) 제거 → 최신순 keep 건."""
+    items = _get(base, headers, query=query, display=30, sort="sim").get("items", [])
+    out: list[dict] = []
     for it in items:
+        title = _clean(it.get("title", ""))
+        if filters and not all(f in title for f in filters):
+            continue
+        w = _words(title)
+        if any(len(w & _words(o["title"])) / max(1, len(w | _words(o["title"]))) > 0.45 for o in out):
+            continue
         link = it.get("originallink") or it.get("link", "")
         out.append({
-            "title": _clean(it.get("title", "")),
+            "title": title,
             "date": _pub_iso(it.get("pubDate", "")),
             "source": _source(link),
             "url": link,
         })
+        if len(out) >= keep:
+            break
+    out.sort(key=lambda d: d["date"], reverse=True)
     return out
 
 
@@ -142,7 +161,7 @@ def main() -> None:
     print(f"엔드포인트: {base}")
 
     if not QUERIES_CSV.exists():
-        sys.exit(f"{QUERIES_CSV} 없음. player,query_ko 컬럼으로 만들어 주세요.")
+        sys.exit(f"{QUERIES_CSV} 없음. player,count_query,news_query,news_filter 컬럼으로 만들어 주세요.")
 
     q = pd.read_csv(QUERIES_CSV)
     today = pd.Timestamp.today().strftime("%Y-%m-%d")
@@ -150,17 +169,20 @@ def main() -> None:
     counts: dict[str, int] = {}
     timeline: dict[str, dict] = {}
     for _, r in q.iterrows():
-        player, query = str(r["player"]), str(r["query_ko"])
+        player = str(r["player"])
+        count_q = str(r.get("count_query") or r.get("query_ko") or "")
+        news_q = str(r.get("news_query") or count_q)
+        filters = [t for t in str(r.get("news_filter") or "").split("|") if t]
         try:
             if not args.news_only:
-                counts[player] = news_total(query, base, headers)
-            recent = news_recent(query, base, headers)
+                counts[player] = news_total(count_q, base, headers)
+            recent = news_recent(news_q, base, headers, filters)
         except Exception as e:  # noqa: BLE001
             print(f"  ! {player}: {e}")
             continue
-        timeline[player] = {"query": query, "asof": today, "items": recent}
+        timeline[player] = {"query": news_q, "asof": today, "items": recent}
         c = f"{counts[player]:,}건 · " if player in counts else ""
-        print(f"  {player:<20} {c}최근 {len(recent)}건" + (f"  ({recent[0]['date']} …)" if recent else ""))
+        print(f"  {player:<20} {c}타임라인 {len(recent)}건" + (f"  (최신 {recent[0]['date']})" if recent else "  ✗"))
         time.sleep(0.2)  # rate limit 여유
 
     if args.dry_run:

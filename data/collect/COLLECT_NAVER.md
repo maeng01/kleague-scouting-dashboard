@@ -56,7 +56,7 @@ export NCP_API_KEY=발급받은_Client_Secret
 
 ### 5. 질의어 확정
 
-`data/collect/naver_queries.csv` (player, query_ko, note) 확인:
+`data/collect/naver_queries.csv` (player, count_query, news_query, news_filter, note) 확인:
 - 외국인 선수 한글 표기가 맞는지 (K리그 공식 표기 기준)
 - 동명이인 있는 한국 선수는 **팀명 병기** (예: `이호재 포항`)
 - 22명 전수화하려면 여기에 행 추가
