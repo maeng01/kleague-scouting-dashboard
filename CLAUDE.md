@@ -169,8 +169,25 @@ base Gls/Ast 대조로 올바른 줄 선택, 없는 파일은 스킵(NaN). `_row
 
 ### 아직 (선택 개선)
 - 2025 유효슈팅·드리블 7/14 (부수), 2026 전체 피파울 리더보드 (현재 PK 7명)
-- brand_marketing.csv 나머지 컬럼(팔로워 성장률 socialblade, 네이버 뉴스 건수, 멀티플랫폼)
 - 최근가중 블렌드 뷰(2026×0.6 + 2025×0.4) 미구현 — 현재는 두 시즌 나란히만
+
+### 배포 + 콘텐츠 보강 (2026-09-06)
+- **배포 완료**: GitHub `github.com/maeng01/kleague-scouting-dashboard` →
+  Streamlit Community Cloud `https://kleague-striker-scouting.streamlit.app`.
+  Python 3.12 로 고정(3.14 는 altair import 깨짐). `requirements.txt` 에 `altair==5.5.0` 핀.
+- **포트폴리오 문서**: `README.md`(재구성) + `PORTFOLIO_1PAGER.md`(지원서 첨부용).
+- **소개 & 사용법 페이지** 신설(첫 페이지, 기본 랜딩) — 3가지 질문/용어 6개/5분 워크스루/데이터 출처/한계.
+- **케이스 스터디 대폭 보강**: `data/case_studies.json` 8건, `module` 필드로 3모듈 그룹핑.
+  Osaka·손흥민·EMV·조규성·**누녜스(과정 vs 결과)**·**샤라포바 2016(브랜드 세이프티=이 도구 한계)**·
+  김민재(재계약)·에이전시 업무 범위. app.py 케이스 스터디 페이지가 module별로 렌더 + source_note.
+- **언론 노출 재현화 파이프라인**: `brand_fit_pilot.csv` 에 `news_count`/`news_count_asof` 컬럼,
+  `src/brand_fit.py` 가 news_count 있으면 `log10` → media_score, 없으면 media_exposure 1–5 fallback.
+  `config.NEWS_COUNT_REF_LOW/HIGH`(30/3000). `src/collect_naver.py`(네이버 검색 API `news.json` total,
+  env NAVER_CLIENT_ID/SECRET), `data/collect/naver_queries.csv`, `data/collect/COLLECT_NAVER.md`.
+  **값은 미수집** — 네이버 앱 등록(Client ID/Secret)은 사용자만 가능. Google News RSS 대안은 노이즈 커서 폐기.
+- **참여율 확대 실패**: 2026-09 Instagram 이 비로그인 프로필/게시물 접근 전면 차단(og:description 트릭 무효).
+  8월엔 됐으나 지금은 로그인 세션(Claude in Chrome 등) 없이는 추가 실측 불가. 파일럿 5명 유지.
+  Lee Hojae IG(@hj__lee19), Bruno Mota(@brunomotacorreia) 핸들은 확인됨 — 측정만 못 함.
 
 ## 아직 안 한 것 / 다음 단계
 
@@ -178,9 +195,11 @@ base Gls/Ast 대조로 올바른 줄 선택, 없는 파일은 스킵(NaN). `_row
 - [x] Radar Chart로 선수 프로필 시각화 (Streamlit)
 - [x] Agency Recommendation 카드 + 제안서 초안(.docx) 생성
 - [x] Streamlit 대시보드로 전체 통합
-- [ ] 참여율(engagement)을 추정치 → 실측치로 교체 (게시물 10건 수동 카운트)
-- [ ] 파일럿 대상 확대 (현재 10명 → 20~30명), Marcão/Hleihil/Lee Hojae SNS 재조사
-- [ ] 언론 노출(media_exposure)을 뉴스 검색 건수 등 재현 가능한 지표로 근거화
+- [x] 참여율(engagement) 실측 (파일럿 5명) — 추가 확대는 IG 차단으로 보류
+- [x] Streamlit Community Cloud 배포 + 포트폴리오 문서(README, 1pager)
+- [x] 소개 & 사용법 페이지, 케이스 스터디 8건 보강
+- [~] 언론 노출 재현화 — 코드/스크립트/가이드 완료, 값은 네이버 API 키 대기
+- [ ] 파일럿 대상 확대 (IG 로그인 세션 필요) / 네이버 news_count 수집 / 최근가중 블렌드 뷰
 - [ ] (향후 확장, 이번 범위 제외) ML Potential Model, Historical Backtesting
 
 ## 톤 관련 주의사항

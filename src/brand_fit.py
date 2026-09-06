@@ -71,7 +71,19 @@ def marketability(row: pd.Series) -> Marketability:
         elif ec == "measured":
             notes.append(f"참여율 {eng:g}% = 최근 게시물 (좋아요+댓글)/팔로워 실측.")
 
-    media_score = _lin(float(media), 1, 5) if pd.notna(media) else 30.0
+    news_count = row.get("news_count")
+    if pd.notna(news_count) and float(news_count) > 0:
+        lo = math.log10(C.NEWS_COUNT_REF_LOW)
+        hi = math.log10(C.NEWS_COUNT_REF_HIGH)
+        media_score = _lin(math.log10(float(news_count)), lo, hi)
+        notes.append(
+            f"언론 노출 = {C.NEWS_COUNT_LABEL} {int(float(news_count)):,}건 (log 스케일)."
+        )
+    elif pd.notna(media):
+        media_score = _lin(float(media), 1, 5)
+        notes.append("언론 노출 = 1~5 수동 버킷 (재현 가능한 뉴스 건수로 대체 예정).")
+    else:
+        media_score = 30.0
     fanbase_score = C.FANBASE_BREADTH_SCORE.get(str(breadth), 45.0)
 
     w = C.MARKETABILITY_WEIGHTS

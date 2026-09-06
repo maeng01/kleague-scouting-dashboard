@@ -93,6 +93,15 @@ FOLLOWER_REF_HIGH = 120_000
 ENGAGEMENT_REF_LOW = 2.0
 ENGAGEMENT_REF_HIGH = 12.0
 
+# 언론 노출: '고정 질의로 뉴스 검색 결과 건수'를 재현 가능한 지표로 삼는다.
+# 권장 소스 = 네이버 검색 API `news.json` 응답의 `total` (질의: 선수 한국어명, 전체 색인 기준).
+#   → 앱 등록(Client ID/Secret) 필요. 스크립트: src/collect_naver.py, 가이드: data/collect/COLLECT_NAVER.md
+# brand_fit_pilot.csv 에 news_count 가 있으면 log 스케일로 media 점수 산출,
+# 없으면 기존 media_exposure(1~5 수동 버킷)로 fallback.
+NEWS_COUNT_LABEL = "네이버 뉴스 검색 total(전체 기간)"
+NEWS_COUNT_REF_LOW = 30      # 30건 이하 → 0점 (log10 보간)
+NEWS_COUNT_REF_HIGH = 3000   # 3000건 이상 → 100점
+
 # ---------------------------------------------------------------------------
 # 카테고리별 이미지 태그 친화도 (0~1). 없는 태그는 0.
 # baseline 은 marketability 점수가 그대로 반영되는 비율.
