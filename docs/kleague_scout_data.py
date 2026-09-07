@@ -1,11 +1,14 @@
 """
-K리그1 선수 데이터 수집 스크립트 (로컬 실행용)
+K리그1 선수 데이터 수집 스크립트 (로컬 실행용) — ⚠️ 폐기, 참고용 보관
+
+FBref 봇 차단으로 soccerdata 방식은 실패함. 실제 데이터는 FotMob 리더보드 수동 복사
+→ `rebuild.py` 파싱으로 확보 (README / docs/DATA_COLLECTION.md 참고).
 
 사전 준비:
     pip install soccerdata pandas
 
 실행:
-    python kleague_scout_data.py
+    python docs/kleague_scout_data.py
 """
 
 import soccerdata as sd

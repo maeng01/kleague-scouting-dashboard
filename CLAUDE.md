@@ -3,7 +3,7 @@
 ## 배경 및 목적
 
 스포츠 에이전시(브리온 등) 및 향후 스포츠 브랜드 엔도스먼트 직무 지원용 포트폴리오 프로젝트.
-원래 기획(`football_talent_identification_scouting_model.md`)은 ML 기반 잠재력 예측·역사적
+원래 기획(`docs/football_talent_identification_scouting_model.md`)은 ML 기반 잠재력 예측·역사적
 백테스팅에 초점이 맞춰져 있었으나, 아래 이유로 방향을 재설정함:
 
 1. 유소년 historical dataset은 공개 확보가 사실상 불가능 (survivorship bias 있는 표본 구하기 어려움)
@@ -23,7 +23,8 @@
 3. **Agency Recommendation** — 구현 완료 (`src/agency.py`, `src/proposal.py`).
    규칙 기반 강점/리스크/전략/우선순위 + .docx 제안서 초안 생성.
 
-전체 제안서는 `athlete_value_scouting_proposal.md`, 구조·실행법은 `README.md` 참고.
+전체 제안서 초안은 `docs/athlete_value_scouting_proposal.md`, 구조·실행법은 `README.md` 참고.
+(루트에 있던 기획·수집 문서는 `docs/` 로 이동 — 2026-09-08)
 Streamlit 앱: `app.py` (5개 페이지: 소개 & 사용법 / 선수 대시보드 / 파일럿 랭킹 / 케이스 스터디 / 방법론 & 한계).
 실행 `./run.sh` 또는 `.venv/bin/streamlit run app.py`. 테스트 `.venv/bin/pytest -q` (26개). CI: `.github/workflows/ci.yml`.
 
@@ -71,7 +72,7 @@ Tiago Orobó, Matheus Oliveira Santos, Marcão, Abdallah Hleihil, Lee Hojae.
   같이 표시해서 표본 크기를 투명하게 보여줘야 함
 - **완성된 결과물**: `kleague_2025_attackers_scouting_index.csv` (68명, Per-90 지표 +
   percentile rank 포함: Gls_90, Ast_90, GplusA_90, Sh_90, SoT_90, SoT_pct, Conversion)
-- **수집 스크립트**: `kleague_scout_data.py` (soccerdata 라이브러리용으로 작성했으나 FBref
+- **수집 스크립트**: `docs/kleague_scout_data.py` (soccerdata 라이브러리용으로 작성했으나 FBref
   봇 차단으로 실패함 — 참고용으로만 남겨둠, 실제 데이터는 수동 CSV로 확보함)
 
 ### FBref 관련 중요 제약 (2026년 1월 발생, 매우 중요)

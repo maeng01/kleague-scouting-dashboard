@@ -1,7 +1,7 @@
 # 데이터 수집 가이드
 
 > **2026-08-28 업데이트**: 경기력 스탯은 **FotMob 리그 리더보드**(지표별 1페이지)로 수집하는
-> 방식으로 변경. 상세는 **[`data/collect/COLLECT_FOTMOB.md`](data/collect/COLLECT_FOTMOB.md)** 참고.
+> 방식으로 변경. 상세는 **[`data/collect/COLLECT_FOTMOB.md`](../data/collect/COLLECT_FOTMOB.md)** 참고.
 > 아래 "1. advanced_stats" 섹션의 선수별 페이지 방식은 폐기. `bio.csv` / `brand_marketing.csv` /
 > `history.csv` 는 그대로 유효.
 

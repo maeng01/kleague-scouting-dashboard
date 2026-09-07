@@ -12,7 +12,7 @@
 
 ## 왜 이 프로젝트인가 — 기획 방향 재설정
 
-처음 기획([`football_talent_identification_scouting_model.md`](football_talent_identification_scouting_model.md))은
+처음 기획([`docs/football_talent_identification_scouting_model.md`](docs/football_talent_identification_scouting_model.md))은
 **ML 기반 유소년 잠재력 예측 + 역사적 백테스팅**이었다. 아래 이유로 방향을 바꿨다.
 
 | 문제 | 판단 |
@@ -211,6 +211,7 @@ src/collect_naver.py 언론 노출 건수 + 뉴스 타임라인 + 검색 관심 
 data/name_map.csv    FotMob 로마자명 → 기초 CSV Player 명 매핑
 tests/               pytest 회귀 테스트 (26개)
 .github/workflows/   CI (rebuild + pytest)
+docs/                초기 기획·아카이브 (폐기된 ML 기획서, 실패한 스크래퍼 등 — 동작 코드 아님)
 ```
 
 ## 기술 스택
