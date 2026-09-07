@@ -83,19 +83,20 @@ _TREND_MSG = {
 }
 
 
-def _trend_caption(news: dict | None) -> None:
+def _trend_caption(news: dict | None, compact: bool = False) -> None:
     """player_news[player]['trend'] → 캠페인 타이밍 캡션. src/collect_naver.py 수집."""
     tr = (news or {}).get("trend")
     if not tr:
         return
     msg = _TREND_MSG.get(tr["label"], f"검색 관심 추세: {tr['label']}")
     r = tr.get("ratio")
-    st.caption(
-        "🔍 " + msg.format(ratio=r if r is not None else "—")
-        + f"  \n<small>네이버 데이터랩 주간 검색 관심도, 최근 4주 vs 이전 8주 · {tr.get('asof','')} 기준. "
-        "요청 배치 내 상대값이라 선수 간 비교는 불가 — 한 선수의 '추세'만 의미.</small>",
-        unsafe_allow_html=True,
-    )
+    body = "🔍 " + msg.format(ratio=r if r is not None else "—")
+    if not compact:
+        body += (
+            f"  \n<small>네이버 데이터랩 주간 검색 관심도, 최근 4주 vs 이전 8주 · {tr.get('asof','')} 기준. "
+            "요청 배치 내 상대값이라 선수 간 비교는 불가 — 한 선수의 '추세'만 의미.</small>"
+        )
+    st.caption(body, unsafe_allow_html=True)
 
 
 # ===========================================================================
@@ -315,7 +316,7 @@ elif page == "선수 대시보드":
             _tr = (_news or {}).get("trend")
             if _tr and _tr.get("label") in ("상승세", "하락세"):
                 st.markdown("#### 🔍 캠페인 타이밍 (검색 관심 추세)")
-                _trend_caption(_news)
+                _trend_caption(_news, compact=True)
             st.markdown("#### 카테고리별 적합도")
             st.dataframe(pd.DataFrame(
                 [{"카테고리": f.label, "적합도": f.score, "근거 태그": ", ".join(f.drivers) or "—"} for f in fits]
@@ -333,7 +334,7 @@ elif page == "선수 대시보드":
         else:
             mkt = brand_fit.marketability(row)
             fits = brand_fit.category_fit(row, mkt)
-            card = agency.build_card(row, mkt, fits, prow)
+            card = agency.build_card(row, mkt, fits, prow, (_news or {}).get("trend"))
             st.markdown(f"## {'★' * card.priority_stars}{'☆' * (5 - card.priority_stars)}  우선순위")
             st.caption(card.priority_reason)
             g1, g2 = st.columns(2)
@@ -359,7 +360,8 @@ elif page == "파일럿 랭킹":
     for _, r in df[df["player"].notna()].iterrows():
         mkt = brand_fit.marketability(r)
         fits = brand_fit.category_fit(r, mkt)
-        card = agency.build_card(r, mkt, fits, data_loader.prior_row(prior_df, r["Player"]))
+        card = agency.build_card(r, mkt, fits, data_loader.prior_row(prior_df, r["Player"]),
+                                 (player_news.get(r["Player"]) or {}).get("trend"))
         rows.append({
             "선수": r["Player"], "구단": r["Squad"], "나이": r["age_display"],
             "90s": r["90s"], "신뢰도": _TIER_BADGE.get(r["reliability"], ""),

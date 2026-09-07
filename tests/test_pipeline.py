@@ -143,6 +143,21 @@ def test_agency_card_for_every_pilot(data, pilots):
         assert card.strategies and card.strengths and card.risks
 
 
+def test_trend_feeds_agency_card(data, pilots):
+    """검색 관심 '상승세' → 전략에 캠페인 타이밍 문구, '하락세' → 리스크."""
+    _, prior, _, _ = data
+    r = pilots.iloc[0]
+    mk = brand_fit.marketability(r)
+    fits = brand_fit.category_fit(r, mk)
+    pr = data_loader.prior_row(prior, r["Player"])
+    up = agency.build_card(r, mk, fits, pr, {"label": "상승세", "ratio": 1.6})
+    assert any("상승세" in s for s in up.strategies)
+    down = agency.build_card(r, mk, fits, pr, {"label": "하락세", "ratio": 0.6})
+    assert any("하락세" in s for s in down.risks)
+    base = agency.build_card(r, mk, fits, pr, None)
+    assert not any("검색 관심" in s for s in base.strategies + base.risks)
+
+
 def test_proposal_docx_is_valid(data, pilots):
     _, prior, _, _ = data
     r = pilots.iloc[0]

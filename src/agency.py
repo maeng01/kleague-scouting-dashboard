@@ -1,6 +1,7 @@
 """③ Agency Recommendation — 규칙 기반 카드 생성.
 
-Scouting Snapshot(과정지표 percentile · 신뢰도 티어 · 2025 대비 추세) + Brand Fit 을 결합해
+Scouting Snapshot(과정지표 percentile · 신뢰도 티어 · 2025 대비 추세) + Brand Fit
++ 네이버 데이터랩 검색 관심 추세(캠페인 타이밍)를 결합해
 강점 / 리스크 / 추천 전략 / 우선순위(★). ML 예측이 아니라 도메인 규칙이다.
 """
 
@@ -33,7 +34,7 @@ def _process_score(row: pd.Series) -> float:
 
 
 def build_card(row: pd.Series, mkt: Marketability, fits: list[CategoryFit],
-               prior: pd.Series | None = None) -> AgencyCard:
+               prior: pd.Series | None = None, trend: dict | None = None) -> AgencyCard:
     player = str(row["Player"])
     age = row.get("age_years")
     nineties = float(row.get("90s", 0) or 0)
@@ -149,6 +150,18 @@ def build_card(row: pd.Series, mkt: Marketability, fits: list[CategoryFit],
         strategies.append("대표팀 소집·국제대회 일정에 맞춘 브랜드 캠페인 타이밍 조율")
     if "global_journey" in tags:
         strategies.append("출신국/이전 소속 리그 시장 겨냥한 이중 언어 콘텐츠")
+
+    # ---- 캠페인 타이밍: 네이버 데이터랩 검색 관심 추세 ------------------
+    tl = (trend or {}).get("label")
+    tr = (trend or {}).get("ratio")
+    if tl == "상승세":
+        strategies.append(
+            f"검색 관심 상승세(최근 4주 ÷ 이전 8주 {tr}배) — 브랜드 캠페인 노출·재계약 협상 개시 타이밍"
+        )
+    elif tl == "하락세":
+        risks.append(
+            "검색 관심 하락세 — 대중 노출이 식는 구간. 대형 캠페인은 대표팀·이적 등 반등 계기 이후로"
+        )
 
     stars, reason = _priority(proc, mkt, age, tier)
 
