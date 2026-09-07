@@ -38,9 +38,9 @@ https://console.ncloud.com/naver-api-hub/application → **[Application 등록]*
 
 - Application 이름: 아무거나 (예: `kleague-scouting`)
 - **사용 API 선택** — 이 프로젝트에 유용한 것:
-  - ✅ **검색 - 뉴스** (필수, `news_count` 에 쓰임)
+  - ✅ **검색 - 뉴스** (필수, `news_count` + 최근 뉴스 타임라인)
+  - ✅ **데이터랩 (검색어트렌드)** (권장 — "검색량이 오르는 중인가" 캠페인 타이밍 신호. 이미 코드에 연결됨)
   - ☐ 검색 - 블로그 (선택 — 팬·화제성 보조 지표로 확장 여지)
-  - ☐ 검색어트렌드 (선택 — "검색량이 오르는 중인가" 모멘텀 신호. 별도 활용 코드 필요)
 - 서비스 환경 / 인증: WEB, URL 은 `http://localhost` 등 아무거나
 
 ### 3. 인증 정보 확인
@@ -56,9 +56,11 @@ export NCP_API_KEY=발급받은_Client_Secret
 
 ### 5. 질의어 확정
 
-`data/collect/naver_queries.csv` (player, count_query, news_query, news_filter, note) 확인:
+`data/collect/naver_queries.csv` (player, count_query, news_query, news_filter, **trend_query**, note) 확인:
 - 외국인 선수 한글 표기가 맞는지 (K리그 공식 표기 기준)
 - 동명이인 있는 한국 선수는 **팀명 병기** (예: `이호재 포항`)
+- `trend_query` = 데이터랩 검색어 트렌드용. `;` 로 구분해 키워드 그룹(최대 5개)을 만든다
+  (예: `말컹;마르캉` → 두 표기를 한 그룹으로 합산). 비우면 그 선수는 트렌드 스킵.
 - 22명 전수화하려면 여기에 행 추가
 
 ### 6. 실행
@@ -69,11 +71,15 @@ python -m src.collect_naver              # news_count + 뉴스 타임라인 둘 
 python -m src.collect_naver --news-only  # 타임라인만 갱신 (건수는 그대로)
 ```
 
-두 가지를 수집한다:
+세 가지를 수집한다:
 - **`news_count`** → `data/brand_fit_pilot.csv` 컬럼. `src/brand_fit.py` 가 `media_exposure`
   버킷 대신 `log10(news_count)` 를 0~100 으로 매핑해 Marketability 에 반영.
-- **뉴스 타임라인** → `data/collect/player_news.json` (선수별 최근 헤드라인 8건: 제목·날짜·매체·링크).
+- **뉴스 타임라인** → `data/collect/player_news.json` 의 `items` (선수별 최근 헤드라인 6건: 제목·날짜·매체·링크).
   app 선수 페이지의 "📰 최근 뉴스" 섹션에 **수집 시점 스냅샷**으로 표시된다(스탯 아님, 맥락).
+- **검색 관심 추세** → `player_news.json` 의 `trend` (`_momentum()`). 데이터랩 주간 검색 관심도
+  최근 약 18주 → **최근 4주 ÷ 이전 8주** 비율 → `상승세`/`보합`/`하락세`/`관심 미미`/`데이터 부족`.
+  Marketability 점수엔 안 들어가고(배치 내 상대 스케일이라 선수 간 비교 불가), 선수 페이지·②탭에
+  "캠페인·재계약 타이밍" 참고 신호로만 표시.
 
 앱은 자동 반영 (재빌드 불필요). 타임라인은 시간이 지나면 낡으므로 갱신하려면 재실행.
 
@@ -85,5 +91,8 @@ python -m src.collect_naver --news-only  # 타임라인만 갱신 (건수는 그
 ## 한계
 
 - `total` 은 기간 필터가 없어 **전체 기간 누적 건수**다. "최근 폼"이 아니라 "누적 인지도"에 가깝다.
-  최근 노출 추세가 필요하면 **검색어트렌드(DataLab)** API 를 별도로 붙여야 한다.
+  최근 노출 방향은 `trend`(검색어트렌드) 로 보완한다.
+- 데이터랩 `ratio` 는 **요청 배치 내에서 최고점을 100 으로 스케일한 상대값** → 선수 간 절대 비교 불가.
+  한 선수 시계열의 '기울기'만 의미. 검색량 자체가 적은 선수(흘레이할·디오고·이호재)는 "데이터 부족".
 - 표기가 흔한 이름(이호재, 디오구)은 팀명을 넣어도 완벽히 분리되지 않을 수 있음 → `note` 컬럼에 기록.
+- 데이터랩 HUB 경로는 `/search-trend/v1/search` (POST). `/datalab/*` 계열은 전부 404.

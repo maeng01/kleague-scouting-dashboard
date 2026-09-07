@@ -57,27 +57,29 @@ import pandas as pd
 
 from . import config as C
 
-HUB_BASE = "https://naverapihub.apigw.ntruss.com/search/v1/news"
-LEGACY_BASE = "https://openapi.naver.com/v1/search/news.json"
+HUB_NEWS = "https://naverapihub.apigw.ntruss.com/search/v1/news"
+HUB_TREND = "https://naverapihub.apigw.ntruss.com/search-trend/v1/search"
+LEGACY_NEWS = "https://openapi.naver.com/v1/search/news.json"
+LEGACY_TREND = "https://openapi.naver.com/v1/datalab/search"
 QUERIES_CSV = C.DATA_DIR / "collect" / "naver_queries.csv"
 NEWS_JSON = C.DATA_DIR / "collect" / "player_news.json"
 
 _TAG = re.compile(r"<[^>]+>")
 
 
-def _client() -> tuple[str, dict[str, str]]:
-    """(base_url, headers) — HUB 키가 있으면 HUB, 없으면 구 developers.naver.com 폴백."""
+def _client() -> tuple[str, str, dict[str, str]]:
+    """(news_url, trend_url, headers) — HUB 키가 있으면 HUB, 없으면 구 developers.naver.com 폴백."""
     hub_id = os.environ.get("NCP_API_KEY_ID")
     hub_key = os.environ.get("NCP_API_KEY")
     if hub_id and hub_key:
-        return HUB_BASE, {
+        return HUB_NEWS, HUB_TREND, {
             "X-NCP-APIGW-API-KEY-ID": hub_id,
             "X-NCP-APIGW-API-KEY": hub_key,
         }
     old_id = os.environ.get("NAVER_CLIENT_ID")
     old_key = os.environ.get("NAVER_CLIENT_SECRET")
     if old_id and old_key:
-        return LEGACY_BASE, {
+        return LEGACY_NEWS, LEGACY_TREND, {
             "X-Naver-Client-Id": old_id,
             "X-Naver-Client-Secret": old_key,
         }
@@ -151,14 +153,50 @@ def news_recent(
     return out
 
 
+def _momentum(ratios: list[float]) -> dict:
+    """주간 검색 관심도(상대값) 리스트 → 최근 4주 vs 이전 8주 모멘텀 라벨.
+    NAVER DataLab 값은 요청 배치 내 상대 스케일이라 절대 크기는 비교 불가 — '추세'만 쓴다."""
+    if len(ratios) < 8:
+        return {"label": "데이터 부족", "recent": None, "prior": None}
+    recent = sum(ratios[-4:]) / 4
+    prior = sum(ratios[-12:-4]) / len(ratios[-12:-4])
+    if prior < 2 and recent < 2:
+        return {"label": "관심 미미", "recent": round(recent, 1), "prior": round(prior, 1)}
+    r = recent / prior if prior > 0 else 99
+    label = "상승세" if r >= 1.25 else "하락세" if r <= 0.75 else "보합"
+    return {"label": label, "recent": round(recent, 1), "prior": round(prior, 1), "ratio": round(r, 2)}
+
+
+def search_trend(
+    groups: list[tuple[str, list[str]]], trend_url: str, headers: dict[str, str],
+    start: str, end: str,
+) -> dict[str, dict]:
+    """[(player, [keywords])] → {player: 모멘텀}. 한 요청에 5그룹까지."""
+    out: dict[str, dict] = {}
+    h = {**headers, "Content-Type": "application/json"}
+    for i in range(0, len(groups), 5):
+        chunk = groups[i:i + 5]
+        body = json.dumps({
+            "startDate": start, "endDate": end, "timeUnit": "week",
+            "keywordGroups": [{"groupName": n, "keywords": k} for n, k in chunk],
+        }).encode()
+        req = urllib.request.Request(trend_url, data=body, headers=h)
+        with urllib.request.urlopen(req, timeout=15) as r:
+            res = json.load(r)
+        for g in res.get("results", []):
+            out[g["title"]] = _momentum([p["ratio"] for p in g.get("data", [])])
+        time.sleep(0.3)
+    return out
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--news-only", action="store_true", help="타임라인만 갱신")
     args = ap.parse_args()
 
-    base, headers = _client()
-    print(f"엔드포인트: {base}")
+    news_url, trend_url, headers = _client()
+    print(f"엔드포인트: {news_url}")
 
     if not QUERIES_CSV.exists():
         sys.exit(f"{QUERIES_CSV} 없음. player,count_query,news_query,news_filter 컬럼으로 만들어 주세요.")
@@ -168,15 +206,19 @@ def main() -> None:
 
     counts: dict[str, int] = {}
     timeline: dict[str, dict] = {}
+    trend_groups: list[tuple[str, list[str]]] = []
     for _, r in q.iterrows():
         player = str(r["player"])
         count_q = str(r.get("count_query") or r.get("query_ko") or "")
         news_q = str(r.get("news_query") or count_q)
         filters = [t for t in str(r.get("news_filter") or "").split("|") if t]
+        tq = [k.strip() for k in str(r.get("trend_query") or "").split(";") if k.strip()]
+        if tq:
+            trend_groups.append((player, tq[:5]))
         try:
             if not args.news_only:
-                counts[player] = news_total(count_q, base, headers)
-            recent = news_recent(news_q, base, headers, filters)
+                counts[player] = news_total(count_q, news_url, headers)
+            recent = news_recent(news_q, news_url, headers, filters)
         except Exception as e:  # noqa: BLE001
             print(f"  ! {player}: {e}")
             continue
@@ -184,6 +226,18 @@ def main() -> None:
         c = f"{counts[player]:,}건 · " if player in counts else ""
         print(f"  {player:<20} {c}타임라인 {len(recent)}건" + (f"  (최신 {recent[0]['date']})" if recent else "  ✗"))
         time.sleep(0.2)  # rate limit 여유
+
+    # 검색어 트렌드 (모멘텀)
+    trends: dict[str, dict] = {}
+    if trend_groups:
+        start = (pd.Timestamp.today() - pd.Timedelta(weeks=18)).strftime("%Y-%m-%d")
+        try:
+            trends = search_trend(trend_groups, trend_url, headers, start, today)
+            for p, t in trends.items():
+                timeline.setdefault(p, {"asof": today, "items": []})["trend"] = {**t, "asof": today}
+                print(f"  {p:<20} 검색 트렌드: {t['label']}")
+        except Exception as e:  # noqa: BLE001
+            print(f"  ! 검색 트렌드 스킵: {e}")
 
     if args.dry_run:
         print("\n--dry-run: 저장 안 함")

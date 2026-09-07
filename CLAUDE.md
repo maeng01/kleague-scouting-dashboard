@@ -192,6 +192,19 @@ base Gls/Ast 대조로 올바른 줄 선택, 없는 파일은 스킵(NaN). `_row
 - **뉴스로 스탯 추출은 안 함** — API 가 본문 안 줌 + 뉴스 산문에 xG 없음. 스탯은 FotMob 유지.
 - 갱신: `python -m src.collect_naver --news-only` (키 필요). 배포엔 json 만 있으면 됨.
 
+### 검색 관심 추세 / 캠페인 타이밍 (2026-09-07) — NAVER 데이터랩
+- 데이터랩 검색어트렌드 HUB 경로: `naverapihub.apigw.ntruss.com/search-trend/v1/search` (POST).
+  `/datalab/*` 계열은 전부 404. body `{startDate,endDate,timeUnit:"week",keywordGroups:[{groupName,keywords}]}`,
+  한 요청에 5그룹까지. 응답 `ratio` 는 **요청 배치 내 최고점=100 상대값** → 선수 간 비교 불가, 추세만.
+- `src/collect_naver._momentum(ratios)` — 최근 약 18주 주간값 → **최근 4주 평균 ÷ 이전 8주 평균**
+  → `상승세`(≥1.25)/`보합`/`하락세`(≤0.75)/`관심 미미`(양쪽 <2)/`데이터 부족`(8주 미만).
+  `player_news.json` 의 `trend` 키로 저장.
+- `naver_queries.csv` 에 `trend_query` 컬럼 추가(`;` 구분 = 키워드 그룹, 예 `말컹;마르캉`).
+- 파일럿 11명: 상승세 클리말라·야고·오로보(티아고)·모따 / 하락세 페리어 / 보합 주민규·무고사·마르캉 /
+  데이터 부족 흘레이할·이호재·디오고 (검색량 임계치 미만·표기 미정착).
+- **Marketability 점수엔 안 넣음** — 상대 스케일이라. app 선수 페이지 + ②탭에 "캠페인/재계약 타이밍"
+  참고 캡션으로만(`app._trend_caption`). 테스트: `test_momentum_labels`.
+
 ### 배포 + 콘텐츠 보강 (2026-09-06)
 - **배포 완료**: GitHub `github.com/maeng01/kleague-scouting-dashboard` →
   Streamlit Community Cloud `https://kleague-striker-scouting.streamlit.app`.
@@ -226,8 +239,11 @@ base Gls/Ast 대조로 올바른 줄 선택, 없는 파일은 스킵(NaN). `_row
 - [x] 참여율(engagement) 실측 (파일럿 5명) — 추가 확대는 IG 차단으로 보류
 - [x] Streamlit Community Cloud 배포 + 포트폴리오 문서(README, 1pager)
 - [x] 소개 & 사용법 페이지, 케이스 스터디 8건 보강
-- [~] 언론 노출 재현화 — 코드/스크립트/가이드 완료, 값은 네이버 API 키 대기
-- [ ] 파일럿 대상 확대 (IG 로그인 세션 필요) / 네이버 news_count 수집 / 최근가중 블렌드 뷰
+- [x] 언론 노출 재현화 — NAVER API HUB news_count 파일럿 11명 실측, media 축 반영
+- [x] 최근가중 블렌드 뷰 (① 레이더 토글) / 플레이 아키타입 / 최근 뉴스 타임라인
+- [x] 검색 관심 추세(데이터랩) — 캠페인 타이밍 신호, 파일럿 11명
+- [x] pytest 25개 + GitHub Actions CI (rebuild + pytest)
+- [ ] 파일럿 대상 확대 (IG 로그인 세션 필요) / 비파일럿 풀 news_count / README 스크린샷(마무리 시)
 - [ ] (향후 확장, 이번 범위 제외) ML Potential Model, Historical Backtesting
 
 ## 톤 관련 주의사항

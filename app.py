@@ -72,6 +72,32 @@ def _reliability_note(row: pd.Series) -> None:
         )
 
 
+_TREND_MSG = {
+    "상승세": "🔺 **검색 관심 상승세** — 최근 4주 네이버 검색량이 이전 8주 평균의 {ratio}배. "
+              "브랜드 캠페인 노출·재계약 협상 타이밍으로 우호적인 구간.",
+    "하락세": "🔻 **검색 관심 하락세** — 최근 4주가 이전 8주의 {ratio}배로 축소. "
+              "대표팀·이적 등 반등 계기 전까지 대형 캠페인은 신중.",
+    "보합": "⏸ **검색 관심 보합** — 최근/이전 4~8주 검색량이 비슷. 특별한 타이밍 시그널 없음.",
+    "관심 미미": "검색 관심 미미 — 네이버 검색량 자체가 임계치 미만. 대중 인지도가 낮아 캠페인 타이밍 판단 어려움.",
+    "데이터 부족": "검색 트렌드 데이터 부족 — 한글 표기 미정착이거나 검색량이 측정 임계치 미만.",
+}
+
+
+def _trend_caption(news: dict | None) -> None:
+    """player_news[player]['trend'] → 캠페인 타이밍 캡션. src/collect_naver.py 수집."""
+    tr = (news or {}).get("trend")
+    if not tr:
+        return
+    msg = _TREND_MSG.get(tr["label"], f"검색 관심 추세: {tr['label']}")
+    r = tr.get("ratio")
+    st.caption(
+        "🔍 " + msg.format(ratio=r if r is not None else "—")
+        + f"  \n<small>네이버 데이터랩 주간 검색 관심도, 최근 4주 vs 이전 8주 · {tr.get('asof','')} 기준. "
+        "요청 배치 내 상대값이라 선수 간 비교는 불가 — 한 선수의 '추세'만 의미.</small>",
+        unsafe_allow_html=True,
+    )
+
+
 # ===========================================================================
 if page == "소개 & 사용법":
     st.title("K리그 스트라이커 스카우팅 & 브랜드 적합도 대시보드")
@@ -220,6 +246,7 @@ elif page == "선수 대시보드":
                 st.markdown(f"- `{it['date']}`{src} — {title}")
     elif _news is not None:
         st.caption("📰 최근 뉴스: 제목에 선수명이 직접 언급된 국내 기사가 최근 거의 없음 (팀 소식 위주).")
+    _trend_caption(_news)
 
     t1, t2, t3 = st.tabs(["① Scouting Snapshot", "② Brand Fit & Marketability", "③ Agency Recommendation"])
 
@@ -285,6 +312,10 @@ elif page == "선수 대시보드":
                          .set_index("구성요소"), horizontal=True)
             for n in mkt.notes:
                 st.caption(f"· {n}")
+            _tr = (_news or {}).get("trend")
+            if _tr and _tr.get("label") in ("상승세", "하락세"):
+                st.markdown("#### 🔍 캠페인 타이밍 (검색 관심 추세)")
+                _trend_caption(_news)
             st.markdown("#### 카테고리별 적합도")
             st.dataframe(pd.DataFrame(
                 [{"카테고리": f.label, "적합도": f.score, "근거 태그": ", ".join(f.drivers) or "—"} for f in fits]
@@ -419,8 +450,7 @@ Per-90 → 풀 내 percentile → 레이더/막대. 90s·신뢰도 티어 항상
 (타깃형 → 높이 소구 캠페인) 대화용. 선수 선택 위 필터로도 쓴다.
 
 ### ② Brand Fit & Marketability
-`Marketability = 도달×{C.MARKETABILITY_WEIGHTS['reach']} + 참여율×{C.MARKETABILITY_WEIGHTS['engagement']}
- + 언론노출×{C.MARKETABILITY_WEIGHTS['media']} + 팬덤폭×{C.MARKETABILITY_WEIGHTS['fanbase']}` (참여율 최대 가중).
+`Marketability = 도달×{C.MARKETABILITY_WEIGHTS['reach']} + 참여율×{C.MARKETABILITY_WEIGHTS['engagement']} + 언론노출×{C.MARKETABILITY_WEIGHTS['media']} + 팬덤폭×{C.MARKETABILITY_WEIGHTS['fanbase']}` (참여율 최대 가중).
 카테고리 적합도 = 이미지 태그 친화도(천장) × 활성화계수(0.35 + 0.65×marketability/100).
 파일럿 11명이 대부분 '외국인 저니맨 스트라이커'라 `global_journey`·`hardworking_pro` 태그가 겹쳐,
 같은 카테고리(여행·금융)로 몰리는 경향이 있다. 절대 순위보다 **선수별 상대 순위와 근거 태그**를 보는 게 맞다.
@@ -453,12 +483,11 @@ Per-90 → 풀 내 percentile → 레이더/막대. 90s·신뢰도 티어 항상
 `src/brand_fit.py` 가 `log10(news_count)` 를 0–100 으로 매핑해 media 축에 반영한다.
 | 선수 | 뉴스 건수 | 선수 | 뉴스 건수 |
 |---|---|---|---|
-| 주민규 | 38,211 | 마르캉(말컹) | 9,350 |
+| 주민규 | 38,212 | 마르캉(말컹) | 9,350 |
 | 무고사 | 18,654 | 이호재 | 8,744 |
-| 모따(Bruno) | 5,662 | 야고 | 4,459 |
-| 클리말라 | 2,639 | 디오구 | 862 |
-| 페리어 | 821 | 디오고 | 1,326 |
-| 오로보·흘레이할 | ~30 (2026 신규·역할 선수, 노출 미미) | | |
+| 모따(Bruno) | 5,662 | 야고 | 4,460 |
+| 클리말라 | 2,642 | 디오고 | 1,327 |
+| 페리어 | 821 | 오로보·흘레이할 | ~30 (2026 신규·역할 선수, 노출 미미) |
 
 질의어·표기 근거는 `data/collect/naver_queries.csv`, 수집 스크립트 `src/collect_naver.py`,
 가이드 `data/collect/COLLECT_NAVER.md`. `total` 은 기간 필터가 없어 '최근 폼'이 아니라 '누적 인지도'.
@@ -467,6 +496,13 @@ Per-90 → 풀 내 percentile → 레이더/막대. 90s·신뢰도 티어 항상
 기사만** 골라 최신 6건 표시. 스탯이 아니라 맥락(득점·부상·이적·대표팀). 이호재 다름슈타트
 데뷔골, 디오고 1골1도움, 야고 라운드 MVP 등. 제목 언급이 얇은 선수(무고사·마르캉·페리어·흘레이할)는 미표시 —
 "국내 언론에 선수 개인으로는 잘 안 나온다"는 것 자체가 신호. 스탯 추출은 안 함(API 가 본문을 안 줌).
+
+**검색 관심 추세 (캠페인 타이밍)** — 네이버 데이터랩 검색어 트렌드(NAVER API HUB `search-trend`)로
+최근 약 18주의 주간 검색 관심도를 받아, **최근 4주 평균 ÷ 이전 8주 평균** 비율로
+`상승세`(≥1.25) / `보합` / `하락세`(≤0.75) 를 라벨링. `news_count`(누적 인지도)와 달리 **방향**을 본다 —
+Marketability 점수에는 넣지 않고(요청 배치 내 상대 스케일이라 선수 간 비교 불가), 선수 페이지·②탭에
+"브랜드 캠페인·재계약 타이밍" 참고 신호로만 표시. 파일럿 중 상승세: 클리말라·야고·오로보·모따 / 하락세: 페리어 /
+표기 미정착·검색량 임계치 미만(흘레이할·이호재·디오고)은 "데이터 부족". 갱신: `python -m src.collect_naver` (키 필요).
 
 ### ③ Agency Recommendation
 과정지표 percentile + 신뢰도 티어 + 연령 + 2025 대비 추세 + marketability → 규칙 기반 강점/리스크/전략/★.

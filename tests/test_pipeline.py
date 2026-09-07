@@ -177,7 +177,24 @@ def test_build_main_is_deterministic():
 def test_player_news_schema():
     nw = data_loader.load_player_news()
     for player, v in nw.items():
-        assert {"query", "asof", "items"} <= v.keys()
+        assert {"asof", "items"} <= v.keys()
         for it in v["items"]:
             assert {"title", "date", "source", "url"} <= it.keys()
             assert it["date"][:4].isdigit()
+        if "trend" in v:
+            assert v["trend"]["label"] in (
+                "상승세", "하락세", "보합", "관심 미미", "데이터 부족"
+            )
+
+
+# --- 검색어 트렌드 모멘텀 -------------------------------------------
+@pytest.mark.parametrize("ratios,expect", [
+    ([5] * 8 + [20] * 4, "상승세"),          # 최근 4주가 이전 대비 급증
+    ([20] * 8 + [5] * 4, "하락세"),          # 최근 4주가 급감
+    ([10] * 12, "보합"),                      # 변화 없음
+    ([0.5] * 12, "관심 미미"),                # 절대 관심도가 바닥
+    ([10, 20, 30], "데이터 부족"),           # 표본 8주 미만
+])
+def test_momentum_labels(ratios, expect):
+    from src.collect_naver import _momentum
+    assert _momentum([float(x) for x in ratios])["label"] == expect
