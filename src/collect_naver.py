@@ -2,8 +2,9 @@
 
 - `news_count` : 고정 질의의 전체 뉴스 건수(`total`) → `data/brand_fit_pilot.csv` 의 컬럼.
   재현 가능한 media_exposure 지표. `src/brand_fit.py` 가 log10 스케일로 Marketability 에 반영.
-- 뉴스 타임라인 : 최근 헤드라인 8건(제목·날짜·매체·링크) → `data/collect/player_news.json`.
+- 뉴스 타임라인 : 최근 헤드라인 최대 6건(제목·날짜·매체·링크) → `data/collect/player_news.json`.
   스탯이 아니라 '맥락'(부상·이적설·대표팀·연속골 등). app 선수 페이지에 스냅샷으로 표시.
+- 검색 관심 추세 : 데이터랩 주간 검색량 → 최근 4주 ÷ 이전 8주 모멘텀 라벨 → `player_news.json` 의 `trend`.
 
 왜 네이버인가:
 - 국내 스포츠 선수의 언론 노출은 네이버 뉴스 색인이 사실상 표준.

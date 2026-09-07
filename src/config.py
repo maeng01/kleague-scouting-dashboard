@@ -99,7 +99,7 @@ ENGAGEMENT_REF_HIGH = 12.0
 # brand_fit_pilot.csv 에 news_count 가 있으면 log 스케일로 media 점수 산출,
 # 없으면 기존 media_exposure(1~5 수동 버킷)로 fallback.
 NEWS_COUNT_LABEL = "네이버 뉴스 검색 total(전체 기간)"
-# 파일럿 11명 실측(2026-09) 분포로 앵커 조정: 27 ~ 38,211건, 중앙값 ~4,500.
+# 파일럿 14명 실측(2026-09) 분포로 앵커 조정: 27 ~ 38,213건, 중앙값 ~2,100.
 NEWS_COUNT_REF_LOW = 40       # 40건 이하 → 0점 (log10 보간). 2026 신규·역할 선수는 실제로 0에 수렴
 NEWS_COUNT_REF_HIGH = 50000   # 5만건 이상 → 100점
 

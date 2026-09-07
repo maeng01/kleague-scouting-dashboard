@@ -17,13 +17,15 @@
 
 1. **Scouting Snapshot** (경기력 기초 맥락, 비중 작게) — 구현 완료 (`src/snapshot.py`)
 2. **Brand Fit & Marketability** (핵심, 비중 크게) — 구현 완료 (`src/brand_fit.py`).
-   파일럿 10명(`data/brand_fit_pilot.csv`) 대상. Marketability(참여율 최대 가중) +
-   이미지 태그 기반 카테고리 적합도(활성화 계수 방식).
+   파일럿 15명(`data/brand_fit_pilot.csv`, 참여율 11명 실측·news_count 14명) 대상.
+   Marketability(참여율 최대 가중) + 이미지 태그 기반 카테고리 적합도(활성화 계수 방식)
+   + 데이터랩 검색 관심 추세(캠페인 타이밍, 점수엔 미반영).
 3. **Agency Recommendation** — 구현 완료 (`src/agency.py`, `src/proposal.py`).
    규칙 기반 강점/리스크/전략/우선순위 + .docx 제안서 초안 생성.
 
 전체 제안서는 `athlete_value_scouting_proposal.md`, 구조·실행법은 `README.md` 참고.
-Streamlit 앱: `app.py` (4개 페이지). 실행 `./run.sh` 또는 `.venv/bin/streamlit run app.py`.
+Streamlit 앱: `app.py` (5개 페이지: 소개 & 사용법 / 선수 대시보드 / 파일럿 랭킹 / 케이스 스터디 / 방법론 & 한계).
+실행 `./run.sh` 또는 `.venv/bin/streamlit run app.py`. 테스트 `.venv/bin/pytest -q` (26개). CI: `.github/workflows/ci.yml`.
 
 ## 구현 상태 (2026-08-28)
 
@@ -242,7 +244,7 @@ IG 자체 검색으로 비파일럿 스트라이커 계정 탐색 → 4명 추�
 
 ## 아직 안 한 것 / 다음 단계
 
-- [x] Brand Fit & Marketability 모듈 (파일럿 10명)
+- [x] Brand Fit & Marketability 모듈 (파일럿 15명, 참여율 11명 실측)
 - [x] Radar Chart로 선수 프로필 시각화 (Streamlit)
 - [x] Agency Recommendation 카드 + 제안서 초안(.docx) 생성
 - [x] Streamlit 대시보드로 전체 통합
