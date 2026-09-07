@@ -211,7 +211,7 @@ base Gls/Ast 대조로 올바른 줄 선택, 없는 파일은 스킵(NaN). `_row
   Python 3.12 로 고정(3.14 는 altair import 깨짐). `requirements.txt` 에 `altair==5.5.0` 핀.
 - **포트폴리오 문서**: `README.md`(재구성) + `PORTFOLIO_1PAGER.md`(지원서 첨부용).
 - **소개 & 사용법 페이지** 신설(첫 페이지, 기본 랜딩) — 3가지 질문/용어 6개/5분 워크스루/데이터 출처/한계.
-- **케이스 스터디 대폭 보강**: `data/case_studies.json` 8건, `module` 필드로 3모듈 그룹핑.
+- **케이스 스터디 대폭 보강**: `data/case_studies.json` 10건(검색 트렌드 2건 포함), `module` 필드로 3모듈 그룹핑.
   Osaka·손흥민·EMV·조규성·**누녜스(과정 vs 결과)**·**샤라포바 2016(브랜드 세이프티=이 도구 한계)**·
   김민재(재계약)·에이전시 업무 범위. app.py 케이스 스터디 페이지가 module별로 렌더 + source_note.
 - **언론 노출 재현화 파이프라인**: `brand_fit_pilot.csv` 에 `news_count`/`news_count_asof` 컬럼,
@@ -238,7 +238,7 @@ base Gls/Ast 대조로 올바른 줄 선택, 없는 파일은 스킵(NaN). `_row
 - [x] Streamlit 대시보드로 전체 통합
 - [x] 참여율(engagement) 실측 (파일럿 5명) — 추가 확대는 IG 차단으로 보류
 - [x] Streamlit Community Cloud 배포 + 포트폴리오 문서(README, 1pager)
-- [x] 소개 & 사용법 페이지, 케이스 스터디 8건 보강
+- [x] 소개 & 사용법 페이지, 케이스 스터디 10건 보강
 - [x] 언론 노출 재현화 — NAVER API HUB news_count 파일럿 11명 실측, media 축 반영
 - [x] 최근가중 블렌드 뷰 (① 레이더 토글) / 플레이 아키타입 / 최근 뉴스 타임라인
 - [x] 검색 관심 추세(데이터랩) — 캠페인 타이밍 신호, 파일럿 11명
