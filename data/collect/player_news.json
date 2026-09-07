@@ -121,6 +121,12 @@
   "asof": "2026-09-07",
   "items": [
    {
+    "title": "[뉴스워커_스포츠] \"이동경 어깨가 무겁다\" 야고 결장, 서울전 비상 걸...",
+    "date": "2026-09-07",
+    "source": "newsworker",
+    "url": "https://www.newsworker.co.kr/news/articleView.html?idxno=502851"
+   },
+   {
     "title": "[K리그1 27R] 수적 우위 못 살린 제주SK, '야고 퇴장' 울산과 0-0 무승부",
     "date": "2026-09-05",
     "source": "sportalkorea",
@@ -139,22 +145,16 @@
     "url": "https://isplus.com/article/view/isp202609030062"
    },
    {
-    "title": "울산 3연패 탈출에 앞장선 야고, K리그1 26라운드 MVP",
+    "title": "울산 3연패 탈출 이끈 야고, K리그1 26라운드 MVP",
     "date": "2026-09-01",
-    "source": "yna",
-    "url": "https://www.yna.co.kr/view/AKR20260901068700007?input=1195m"
+    "source": "newsis",
+    "url": "https://www.newsis.com/view/NISX20260901_0003770923"
    },
    {
     "title": "12·13호골 폭발… 울산 야고, K리그1 26라운드 MVP 선정",
     "date": "2026-09-01",
     "source": "sportsworldi",
     "url": "https://www.sportsworldi.com/newsView/20260901521668"
-   },
-   {
-    "title": "\"멀티골 폭발\" 야고, 울산 3연패 끊고 라운드 MVP",
-    "date": "2026-09-01",
-    "source": "topstarnews",
-    "url": "https://www.topstarnews.net/news/articleView.html?idxno=16179117"
    }
   ],
   "trend": {
@@ -393,6 +393,378 @@
    "label": "데이터 부족",
    "recent": null,
    "prior": null,
+   "asof": "2026-09-07"
+  }
+ },
+ "Vitor Gabriel": {
+  "query": "부천 가브리엘",
+  "asof": "2026-09-07",
+  "items": [
+   {
+    "title": "'갈레고-바사니-가브리엘' 이영민호 부천 vs '김운-마테우스' 유병훈호...",
+    "date": "2026-08-29",
+    "source": "osen",
+    "url": "http://www.osen.co.kr/article/G1112865924"
+   },
+   {
+    "title": "\"득점 위해 완성도 보완할 것\"… '홈 3연승' 노리는 부천, 가브리엘·패...",
+    "date": "2026-08-27",
+    "source": "besteleven",
+    "url": "https://www.besteleven.com/news/articleView.html?idxno=311558"
+   },
+   {
+    "title": "'K리그1 첫 연승 도전' 부천, 갈레고-가브리엘-바사니 스리톱 출격...'연...",
+    "date": "2026-08-22",
+    "source": "osen",
+    "url": "http://www.osen.co.kr/article/G1112861882"
+   }
+  ],
+  "trend": {
+   "label": "하락세",
+   "recent": 17.3,
+   "prior": 49.2,
+   "ratio": 0.35,
+   "asof": "2026-09-07"
+  }
+ },
+ "Breno Herculano": {
+  "query": "안양 브레노",
+  "asof": "2026-09-07",
+  "items": [
+   {
+    "title": "FC안양, 동계 훈련 돌입....브레노 곧 영입 발표",
+    "date": "2026-01-16",
+    "source": "news",
+    "url": "https://news.skbroadband.com/news/articleView.html?idxno=215351"
+   },
+   {
+    "title": "[단독] 안양, 모따 대체자 찾았다···189cm 브라질 스트라이커 브레노...",
+    "date": "2026-01-09",
+    "source": "mk",
+    "url": "https://www.mk.co.kr/article/11927628"
+   }
+  ],
+  "trend": {
+   "label": "데이터 부족",
+   "recent": null,
+   "prior": null,
+   "asof": "2026-09-07"
+  }
+ },
+ "Hólmbert Friðjónsson": {
+  "query": "광주 프리드욘손",
+  "asof": "2026-09-07",
+  "items": [
+   {
+    "title": "'광주FC 선행 퍼졌다!' 신창무-프리드욘손, 불난 차량 운전자 구조...연...",
+    "date": "2026-08-11",
+    "source": "spotvnews",
+    "url": "https://www.spotvnews.co.kr/news/articleView.html?idxno=1001247"
+   },
+   {
+    "title": "[단독]\"아사니는 지워버려\" 아이슬란드서 온 196cm FW 프리드욘손, 광주...",
+    "date": "2025-08-06",
+    "source": "sportschosun",
+    "url": "https://www.sportschosun.com/football/2025-08-06/202508060100035730004460"
+   },
+   {
+    "title": "'아이슬란드 최초 K리거' 광주, 196㎝ 공격수 프리드욘손 영입",
+    "date": "2025-08-06",
+    "source": "nocutnews",
+    "url": "https://www.nocutnews.co.kr/news/6381626?utm_source=naver&utm_medium=article&utm_campaign=20250806041217"
+   }
+  ],
+  "trend": {
+   "label": "데이터 부족",
+   "recent": null,
+   "prior": null,
+   "asof": "2026-09-07"
+  }
+ },
+ "Kim Sinjin": {
+  "query": "제주 김신진",
+  "asof": "2026-09-07",
+  "items": [
+   {
+    "title": "'4경기 3골' 제주 상승세 이끄는 김신진 \"아직 부족하다\"...코스타 감독...",
+    "date": "2026-08-08",
+    "source": "goal",
+    "url": "https://www.goal.com/kr/뉴스/a/bltea4dd0412e1d2615"
+   }
+  ],
+  "trend": {
+   "label": "데이터 부족",
+   "recent": null,
+   "prior": null,
+   "asof": "2026-09-07"
+  }
+ },
+ "Choe Byeongchan": {
+  "query": "강원 최병찬",
+  "asof": "2026-09-07",
+  "items": [
+   {
+    "title": "최병찬 부상에 서민우 퇴장까지…강원FC 고비 넘으니 또 고비",
+    "date": "2026-08-24",
+    "source": "kado",
+    "url": "https://www.kado.net/news/articleView.html?idxno=2068160"
+   },
+   {
+    "title": "수적 열세 속 3실점 패배, 강원 박용호 코치 “최병찬 부상·서민우 퇴장...",
+    "date": "2026-08-23",
+    "source": "sportsseoul",
+    "url": "https://www.sportsseoul.com/news/read/1630256?ref=naver"
+   }
+  ],
+  "trend": {
+   "label": "데이터 부족",
+   "recent": null,
+   "prior": null,
+   "asof": "2026-09-07"
+  }
+ },
+ "Kim Gun-hee": {
+  "query": "강원 김건희",
+  "asof": "2026-09-07",
+  "items": [
+   {
+    "title": "'무려 11개월 만에 터졌다' 김건희 솔직 고백 \"자다가 가슴에 통증 느낄...",
+    "date": "2026-09-07",
+    "source": "starnewskorea",
+    "url": "https://www.starnewskorea.com/sports/2026/09/07/2026090617444847186"
+   },
+   {
+    "title": "시즌 첫 골에도 두 손 모아 사죄했다…강원 김건희 \"자다가 심장이 아플...",
+    "date": "2026-09-07",
+    "source": "fourfourtwo",
+    "url": "https://www.fourfourtwo.co.kr/news/articleView.html?idxno=97493"
+   },
+   {
+    "title": "'카림·김건희·모재현 연속골' 강원, 핵심 자원 이탈에도 안양 3-0 완파...",
+    "date": "2026-09-06",
+    "source": "stoo",
+    "url": "http://www.stoo.com/article.php?aid=108738825776"
+   },
+   {
+    "title": "‘카림 데뷔골+김건희·모재현 연속골’ 강원의 복수극, ‘10년 천적관계...",
+    "date": "2026-09-06",
+    "source": "sportsworldi",
+    "url": "https://www.sportsworldi.com/newsView/20260906510555"
+   }
+  ],
+  "trend": {
+   "label": "상승세",
+   "recent": 32.8,
+   "prior": 21.0,
+   "ratio": 1.56,
+   "asof": "2026-09-07"
+  }
+ },
+ "Kong Minhyu": {
+  "query": "공민현 축구",
+  "asof": "2026-09-07",
+  "items": [
+   {
+    "title": "[단독]안양, 박재용 보내고 수원 류승우-대전 공민현 영입",
+    "date": "2023-07-19",
+    "source": "sports",
+    "url": "https://sports.hankooki.com/news/articleView.html?idxno=6834530"
+   },
+   {
+    "title": "역사적인 첫 맞대결…제주 공민현, 친정팀 상대 최전방 출격[현장라인업...",
+    "date": "2020-05-26",
+    "source": "sportsseoul",
+    "url": "http://www.sportsseoul.com/news/read/920253?ref=naver"
+   },
+   {
+    "title": "[화제의 선수]'부천FC 돌풍' 이끌고 있는 공격수 공민현",
+    "date": "2018-03-27",
+    "source": "kyeongin",
+    "url": "http://www.kyeongin.com/main/view.php?key=20180322010008834"
+   },
+   {
+    "title": "프로축구 부천FC, '공민현-포프' 콤비 앞세워 2연승",
+    "date": "2018-03-11",
+    "source": "imnews",
+    "url": "http://imnews.imbc.com/news/2018/sports/article/4552565_22674.html"
+   },
+   {
+    "title": "프로축구 부천 공민현, K리그 챌린지 38라운드 MVP",
+    "date": "2015-10-13",
+    "source": "news",
+    "url": "http://news.sbs.co.kr/news/endPage.do?news_id=N1003214714&plink=ORI&cooper=NAVER"
+   },
+   {
+    "title": "-프로축구2부- '공민현·김륜도 멀티골' 부천, 강원에 4-2 승리",
+    "date": "2015-10-11",
+    "source": "app",
+    "url": "http://app.yonhapnews.co.kr/YNA/Basic/SNS/r.aspx?c=AKR20151011043600007&did=1195m"
+   }
+  ],
+  "trend": {
+   "label": "하락세",
+   "recent": 12.1,
+   "prior": 20.3,
+   "ratio": 0.6,
+   "asof": "2026-09-07"
+  }
+ },
+ "Jeong Jaemin": {
+  "query": "상무 정재민 축구",
+  "asof": "2026-09-07",
+  "items": [
+   {
+    "title": "김천상무 정재민, K리그 통산 100경기 달성…“꾸준히 오래 뛰는 선수가...",
+    "date": "2026-08-25",
+    "source": "sportsworldi",
+    "url": "https://www.sportsworldi.com/newsView/20260825500183"
+   },
+   {
+    "title": "\"300경기 이상, 꾸준히 오래 뛰고파\" 김천 정재민의 통산 100경기 소감",
+    "date": "2026-08-24",
+    "source": "footballist",
+    "url": "http://www.footballist.co.kr/news/articleView.html?idxno=213913"
+   },
+   {
+    "title": "[현장핫피플] \"선발로 계속 뛰고 싶었다\" 정재민, 첫 선발서 헤더 도움...",
+    "date": "2026-07-12",
+    "source": "sportalkorea",
+    "url": "https://www.sportalkorea.com/news/articleView.html?idxno=2025052909553369968"
+   }
+  ],
+  "trend": {
+   "label": "데이터 부족",
+   "recent": null,
+   "prior": null,
+   "asof": "2026-09-07"
+  }
+ },
+ "Jhon Montaño": {
+  "query": "부천 몬타뇨",
+  "asof": "2026-09-07",
+  "items": [
+   {
+    "title": "“팀에 중심 선수 돼야” 적극적 몸싸움과 헤더…몬타뇨 떠난 부천, 예...",
+    "date": "2026-07-06",
+    "source": "sportsseoul",
+    "url": "https://www.sportsseoul.com/news/read/1620621?ref=naver"
+   },
+   {
+    "title": "[오피셜] 박정인 또 기회 얻었다...몬타뇨 떠난 부천 입단! 이영민 감독...",
+    "date": "2026-07-02",
+    "source": "interfootball",
+    "url": "https://www.interfootball.co.kr/news/articleView.html?idxno=689671"
+   },
+   {
+    "title": "'아직' 안방 승리 없는 부천, 갈레고‧몬타뇨‧카즈 앞세워 '김천 잡기...",
+    "date": "2026-04-24",
+    "source": "besteleven",
+    "url": "https://www.besteleven.com/news/articleView.html?idxno=306060"
+   },
+   {
+    "title": "[K리그1 라인업] '클리말라-후이즈 투톱' 서울vs'몬타뇨 최전방' 부천…...",
+    "date": "2026-04-21",
+    "source": "interfootball",
+    "url": "https://www.interfootball.co.kr/news/articleView.html?idxno=684927"
+   },
+   {
+    "title": "[현장라인업] '몬타뇨 선발-갈레고 벤치' 부천vs'이승원 공격 배치' 강원...",
+    "date": "2026-03-18",
+    "source": "sportschosun",
+    "url": "https://www.sportschosun.com/football/2026-03-18/202603180100125860008698"
+   },
+   {
+    "title": "1부 첫 패배 부천, 골·승리 필요한 강원…몬타뇨·이의형 VS 박상혁·이...",
+    "date": "2026-03-18",
+    "source": "mk",
+    "url": "https://www.mk.co.kr/article/11991870"
+   }
+  ],
+  "trend": {
+   "label": "하락세",
+   "recent": 20.5,
+   "prior": 45.7,
+   "ratio": 0.45,
+   "asof": "2026-09-07"
+  }
+ },
+ "Lee Sang-heon": {
+  "query": "상무 이상헌 공격수",
+  "asof": "2026-09-07",
+  "items": [
+   {
+    "title": "공격포인트 ‘0’, 그래도 믿는다… 이상헌 살리기에 나선 주승진 감독",
+    "date": "2026-05-02",
+    "source": "sportsworldi",
+    "url": "https://www.sportsworldi.com/newsView/20260502504066"
+   },
+   {
+    "title": "‘고재현 극적 동점골’ 김천, ‘이상헌 퇴장’ 수적 열세 딛고 ‘프리...",
+    "date": "2026-03-17",
+    "source": "sportsseoul",
+    "url": "https://www.sportsseoul.com/news/read/1594589?ref=naver"
+   },
+   {
+    "title": "갈 길 바쁜 강원… '상무 합격' 이상헌 중도 이탈 확정",
+    "date": "2025-08-14",
+    "source": "kado",
+    "url": "https://www.kado.net/news/articleView.html?idxno=1328403"
+   },
+   {
+    "title": "양민혁 '베스트11' 받고 토트넘으로…이상헌-이동경 공격수 부문 수상 ...",
+    "date": "2024-11-29",
+    "source": "xportsnews",
+    "url": "https://www.xportsnews.com/article/1935353"
+   },
+   {
+    "title": "강원FC 이상헌, 안데르손·야잔·이승모와 '8월의 선수' 경쟁",
+    "date": "2024-09-04",
+    "source": "kwnews",
+    "url": "https://www.kwnews.co.kr/page/view/2024090417035223811"
+   },
+   {
+    "title": "[공식발표] '김천전 멀티골+두 자릿수 골 달성' 강원 이상헌, K리그1 26라...",
+    "date": "2024-08-14",
+    "source": "footballist",
+    "url": "http://www.footballist.co.kr/news/articleView.html?idxno=188087"
+   }
+  ],
+  "trend": {
+   "label": "하락세",
+   "recent": 3.9,
+   "prior": 7.2,
+   "ratio": 0.55,
+   "asof": "2026-09-07"
+  }
+ },
+ "Lee Kunhee": {
+  "query": "상무 이건희 골",
+  "asof": "2026-09-07",
+  "items": [
+   {
+    "title": "'백종범의 신들린 PK 2회 선방' 김천 상무, 울산 원정 1-3 패배… 이건희...",
+    "date": "2026-08-31",
+    "source": "besteleven",
+    "url": "https://www.besteleven.com/news/articleView.html?idxno=311679"
+   },
+   {
+    "title": "'이건희·김주찬 연속골' 김천 상무, FC 안양과 2-2 무승부로 반전 기틀",
+    "date": "2026-05-15",
+    "source": "besteleven",
+    "url": "https://www.besteleven.com/news/articleView.html?idxno=306827"
+   },
+   {
+    "title": "김천상무, 울산전 1대 2 석패…이건희 만회골 속 끝까지 추격",
+    "date": "2026-05-05",
+    "source": "sportalkorea",
+    "url": "https://www.sportalkorea.com/news/articleView.html?idxno=2025052909553191505"
+   }
+  ],
+  "trend": {
+   "label": "보합",
+   "recent": 34.4,
+   "prior": 30.9,
+   "ratio": 1.11,
    "asof": "2026-09-07"
   }
  }
