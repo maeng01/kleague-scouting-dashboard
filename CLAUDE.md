@@ -254,7 +254,9 @@ IG 자체 검색으로 비파일럿 스트라이커 계정 탐색 → 4명 추�
 - [x] 검색 관심 추세(데이터랩) — 캠페인 타이밍 신호, 파일럿 11명
 - [x] pytest 25개 + GitHub Actions CI (rebuild + pytest)
 - [x] 파일럿 대상 확대 11→15명 (IG 로그인 세션, 참여율 실측 8→11명)
-- [ ] 신규 4명 news_count 수집 (naver_queries.csv 행 추가 + 키로 collect_naver 실행) / README 스크린샷(마무리 시)
+- [~] naver_queries.csv 22명 전수 행 준비 완료 → 키(NCP_API_KEY_ID/KEY)로 `python -m src.collect_naver`
+      1회 실행하면 신규 4명 news_count + 전 22명 타임라인·트렌드 갱신. (키는 사용자만 보유)
+- [ ] README 스크린샷 (프로젝트 마무리 시)
 - [ ] (향후 확장, 이번 범위 제외) ML Potential Model, Historical Backtesting
 
 ## 톤 관련 주의사항
