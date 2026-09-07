@@ -201,11 +201,13 @@ base Gls/Ast 대조로 올바른 줄 선택, 없는 파일은 스킵(NaN). `_row
 - `src/collect_naver._momentum(ratios)` — 최근 약 18주 주간값 → **최근 4주 평균 ÷ 이전 8주 평균**
   → `상승세`(≥1.25)/`보합`/`하락세`(≤0.75)/`관심 미미`(양쪽 <2)/`데이터 부족`(8주 미만).
   `player_news.json` 의 `trend` 키로 저장.
-- `naver_queries.csv` 에 `trend_query` 컬럼 추가(`;` 구분 = 키워드 그룹, 예 `말컹;마르캉`).
-- 파일럿 11명: 상승세 클리말라·야고·오로보(티아고)·모따 / 하락세 페리어 / 보합 주민규·무고사·마르캉 /
-  데이터 부족 흘레이할·이호재·디오고 (검색량 임계치 미만·표기 미정착).
-- **Marketability 점수엔 안 넣음** — 상대 스케일이라. app 선수 페이지 + ②탭에 "캠페인/재계약 타이밍"
-  참고 캡션으로만(`app._trend_caption`). 테스트: `test_momentum_labels`.
+- `naver_queries.csv` 에 `trend_query` 컬럼(`;` 구분 = 키워드 그룹, 예 `말컹;마르캉`). 22명 전수.
+- 22명 스냅샷(2026-09-07): 상승세 클리말라·야고·티아고·모따·김건희 / 하락세 페리어·빅토르 가브리엘·엘쿠라노·공민현·몬타뇨·이상헌 /
+  나머지는 보합 또는 데이터 부족(검색량 임계치 미만: 흘레이할·이호재·디오고·프리드욘손·김신진 등).
+- **트렌드 API 가 400 등으로 실패해도 지난 `trend` 라벨은 이월**(`main()` 이 기존 player_news.json 읽어 carry-over,
+  `search_trend` 는 배치별 try/except). DataLab 은 간헐적 400 을 뱉을 때가 있음.
+- **Marketability 점수엔 안 넣음** — 상대 스케일이라. app 선수 페이지 + ②·③탭에 "캠페인/재계약 타이밍"
+  참고로만(`app._trend_caption`, `agency.build_card(trend=)`). 테스트: `test_momentum_labels`·`test_trend_feeds_agency_card`.
 
 ### 배포 + 콘텐츠 보강 (2026-09-06)
 - **배포 완료**: GitHub `github.com/maeng01/kleague-scouting-dashboard` →

@@ -39,7 +39,14 @@
     "source": "isplus",
     "url": "https://isplus.com/article/view/isp202608140005"
    }
-  ]
+  ],
+  "trend": {
+   "label": "보합",
+   "recent": 60.1,
+   "prior": 54.8,
+   "ratio": 1.1,
+   "asof": "2026-09-07"
+  }
  },
  "Patryk Klimala": {
   "query": "클리말라 축구",
@@ -81,7 +88,14 @@
     "source": "stoo",
     "url": "http://www.stoo.com/article.php?aid=108519988894"
    }
-  ]
+  ],
+  "trend": {
+   "label": "상승세",
+   "recent": 40.1,
+   "prior": 26.3,
+   "ratio": 1.52,
+   "asof": "2026-09-07"
+  }
  },
  "Stefan Mugoša": {
   "query": "무고사 인천 골",
@@ -93,7 +107,14 @@
     "source": "newspim",
     "url": "https://www.newspim.com/news/view/20260823000175"
    }
-  ]
+  ],
+  "trend": {
+   "label": "보합",
+   "recent": 41.2,
+   "prior": 51.7,
+   "ratio": 0.8,
+   "asof": "2026-09-07"
+  }
  },
  "Yago Cariello": {
   "query": "야고 울산",
@@ -135,7 +156,14 @@
     "source": "newsis",
     "url": "https://www.newsis.com/view/NISX20260901_0003770923"
    }
-  ]
+  ],
+  "trend": {
+   "label": "상승세",
+   "recent": 4.8,
+   "prior": 2.2,
+   "ratio": 2.18,
+   "asof": "2026-09-07"
+  }
  },
  "Tiago Orobó": {
   "query": "전북 티아고 오로보",
@@ -159,7 +187,14 @@
     "source": "goal",
     "url": "https://www.goal.com/kr/뉴스/a/blt5d480dc488ac7f12"
    }
-  ]
+  ],
+  "trend": {
+   "label": "상승세",
+   "recent": 5.3,
+   "prior": 0.5,
+   "ratio": 10.26,
+   "asof": "2026-09-07"
+  }
  },
  "Marcão": {
   "query": "울산 말컹",
@@ -171,12 +206,25 @@
     "source": "sportschosun",
     "url": "https://www.sportschosun.com/football/2026-08-26/202608260100158150010127"
    }
-  ]
+  ],
+  "trend": {
+   "label": "보합",
+   "recent": 24.0,
+   "prior": 25.2,
+   "ratio": 0.95,
+   "asof": "2026-09-07"
+  }
  },
  "Abdallah Hleihil": {
   "query": "강원 흘레이할",
   "asof": "2026-09-07",
-  "items": []
+  "items": [],
+  "trend": {
+   "label": "데이터 부족",
+   "recent": null,
+   "prior": null,
+   "asof": "2026-09-07"
+  }
  },
  "Lee Hojae": {
   "query": "이호재 스트라이커",
@@ -218,7 +266,13 @@
     "source": "nocutnews",
     "url": "https://www.nocutnews.co.kr/news/6560132?utm_source=naver&utm_medium=article&utm_campaign=20260809091826"
    }
-  ]
+  ],
+  "trend": {
+   "label": "데이터 부족",
+   "recent": null,
+   "prior": null,
+   "asof": "2026-09-07"
+  }
  },
  "Bruno Mota": {
   "query": "전북 브루노 모따",
@@ -260,7 +314,14 @@
     "source": "kyeonggi",
     "url": "https://www.kyeonggi.com/article/20250722580306"
    }
-  ]
+  ],
+  "trend": {
+   "label": "상승세",
+   "recent": 4.5,
+   "prior": 1.0,
+   "ratio": 4.65,
+   "asof": "2026-09-07"
+  }
  },
  "Morgan Ferrier": {
   "query": "인천 페리어",
@@ -278,7 +339,14 @@
     "source": "fourfourtwo",
     "url": "https://www.fourfourtwo.co.kr/news/articleView.html?idxno=96954"
    }
-  ]
+  ],
+  "trend": {
+   "label": "하락세",
+   "recent": 1.6,
+   "prior": 2.7,
+   "ratio": 0.59,
+   "asof": "2026-09-07"
+  }
  },
  "Diogo": {
   "query": "대전 디오고",
@@ -320,7 +388,13 @@
     "source": "sportschosun",
     "url": "https://www.sportschosun.com/football/2026-09-05/202609050100037190002395"
    }
-  ]
+  ],
+  "trend": {
+   "label": "데이터 부족",
+   "recent": null,
+   "prior": null,
+   "asof": "2026-09-07"
+  }
  },
  "Vitor Gabriel": {
   "query": "부천 가브리엘",
@@ -344,7 +418,14 @@
     "source": "osen",
     "url": "http://www.osen.co.kr/article/G1112861882"
    }
-  ]
+  ],
+  "trend": {
+   "label": "하락세",
+   "recent": 1.6,
+   "prior": 4.5,
+   "ratio": 0.35,
+   "asof": "2026-09-07"
+  }
  },
  "Breno Herculano": {
   "query": "안양 엘쿠라노",
@@ -386,7 +467,14 @@
     "source": "osen",
     "url": "http://www.osen.co.kr/article/G1112844277"
    }
-  ]
+  ],
+  "trend": {
+   "label": "하락세",
+   "recent": 14.4,
+   "prior": 29.6,
+   "ratio": 0.49,
+   "asof": "2026-09-07"
+  }
  },
  "Hólmbert Friðjónsson": {
   "query": "광주 프리드욘손",
@@ -410,7 +498,13 @@
     "source": "nocutnews",
     "url": "https://www.nocutnews.co.kr/news/6381626?utm_source=naver&utm_medium=article&utm_campaign=20250806041217"
    }
-  ]
+  ],
+  "trend": {
+   "label": "데이터 부족",
+   "recent": null,
+   "prior": null,
+   "asof": "2026-09-07"
+  }
  },
  "Kim Sinjin": {
   "query": "제주 김신진",
@@ -422,7 +516,13 @@
     "source": "goal",
     "url": "https://www.goal.com/kr/뉴스/a/bltea4dd0412e1d2615"
    }
-  ]
+  ],
+  "trend": {
+   "label": "데이터 부족",
+   "recent": null,
+   "prior": null,
+   "asof": "2026-09-07"
+  }
  },
  "Choe Byeongchan": {
   "query": "강원 최병찬",
@@ -440,7 +540,13 @@
     "source": "sportsseoul",
     "url": "https://www.sportsseoul.com/news/read/1630256?ref=naver"
    }
-  ]
+  ],
+  "trend": {
+   "label": "데이터 부족",
+   "recent": null,
+   "prior": null,
+   "asof": "2026-09-07"
+  }
  },
  "Kim Gun-hee": {
   "query": "강원 김건희",
@@ -470,7 +576,14 @@
     "source": "sportsworldi",
     "url": "https://www.sportsworldi.com/newsView/20260906510555"
    }
-  ]
+  ],
+  "trend": {
+   "label": "상승세",
+   "recent": 32.8,
+   "prior": 21.0,
+   "ratio": 1.56,
+   "asof": "2026-09-07"
+  }
  },
  "Kong Minhyu": {
   "query": "공민현 축구",
@@ -512,7 +625,14 @@
     "source": "app",
     "url": "http://app.yonhapnews.co.kr/YNA/Basic/SNS/r.aspx?c=AKR20151011043600007&did=1195m"
    }
-  ]
+  ],
+  "trend": {
+   "label": "하락세",
+   "recent": 12.1,
+   "prior": 20.3,
+   "ratio": 0.6,
+   "asof": "2026-09-07"
+  }
  },
  "Jeong Jaemin": {
   "query": "상무 정재민 축구",
@@ -536,7 +656,13 @@
     "source": "sportalkorea",
     "url": "https://www.sportalkorea.com/news/articleView.html?idxno=2025052909553369968"
    }
-  ]
+  ],
+  "trend": {
+   "label": "데이터 부족",
+   "recent": null,
+   "prior": null,
+   "asof": "2026-09-07"
+  }
  },
  "Jhon Montaño": {
   "query": "부천 몬타뇨",
@@ -578,7 +704,14 @@
     "source": "mk",
     "url": "https://www.mk.co.kr/article/11991870"
    }
-  ]
+  ],
+  "trend": {
+   "label": "하락세",
+   "recent": 20.5,
+   "prior": 45.7,
+   "ratio": 0.45,
+   "asof": "2026-09-07"
+  }
  },
  "Lee Sang-heon": {
   "query": "상무 이상헌 공격수",
@@ -620,7 +753,14 @@
     "source": "footballist",
     "url": "http://www.footballist.co.kr/news/articleView.html?idxno=188087"
    }
-  ]
+  ],
+  "trend": {
+   "label": "하락세",
+   "recent": 3.9,
+   "prior": 7.2,
+   "ratio": 0.55,
+   "asof": "2026-09-07"
+  }
  },
  "Lee Kunhee": {
   "query": "상무 이건희 골",
@@ -644,6 +784,13 @@
     "source": "sportalkorea",
     "url": "https://www.sportalkorea.com/news/articleView.html?idxno=2025052909553191505"
    }
-  ]
+  ],
+  "trend": {
+   "label": "보합",
+   "recent": 34.4,
+   "prior": 30.9,
+   "ratio": 1.11,
+   "asof": "2026-09-07"
+  }
  }
 }

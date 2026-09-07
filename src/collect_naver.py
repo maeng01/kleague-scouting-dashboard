@@ -172,7 +172,8 @@ def search_trend(
     groups: list[tuple[str, list[str]]], trend_url: str, headers: dict[str, str],
     start: str, end: str,
 ) -> dict[str, dict]:
-    """[(player, [keywords])] → {player: 모멘텀}. 한 요청에 5그룹까지."""
+    """[(player, [keywords])] → {player: 모멘텀}. 한 요청에 5그룹까지.
+    한 배치가 실패(400 등)해도 나머지 배치는 계속 — 그 배치 선수만 결과에서 빠진다."""
     out: dict[str, dict] = {}
     h = {**headers, "Content-Type": "application/json"}
     for i in range(0, len(groups), 5):
@@ -182,10 +183,13 @@ def search_trend(
             "keywordGroups": [{"groupName": n, "keywords": k} for n, k in chunk],
         }).encode()
         req = urllib.request.Request(trend_url, data=body, headers=h)
-        with urllib.request.urlopen(req, timeout=15) as r:
-            res = json.load(r)
-        for g in res.get("results", []):
-            out[g["title"]] = _momentum([p["ratio"] for p in g.get("data", [])])
+        try:
+            with urllib.request.urlopen(req, timeout=15) as r:
+                res = json.load(r)
+            for g in res.get("results", []):
+                out[g["title"]] = _momentum([p["ratio"] for p in g.get("data", [])])
+        except Exception as e:  # noqa: BLE001
+            print(f"  ! 트렌드 배치 {[n for n, _ in chunk]} 스킵: {e}")
         time.sleep(0.3)
     return out
 
@@ -204,6 +208,14 @@ def main() -> None:
 
     q = pd.read_csv(QUERIES_CSV)
     today = pd.Timestamp.today().strftime("%Y-%m-%d")
+
+    # 기존 스냅샷 — 트렌드 API 가 실패해도 지난 trend 라벨은 잃지 않도록 이월
+    prev: dict[str, dict] = {}
+    if NEWS_JSON.exists():
+        try:
+            prev = json.loads(NEWS_JSON.read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001
+            prev = {}
 
     counts: dict[str, int] = {}
     timeline: dict[str, dict] = {}
@@ -224,6 +236,8 @@ def main() -> None:
             print(f"  ! {player}: {e}")
             continue
         timeline[player] = {"query": news_q, "asof": today, "items": recent}
+        if "trend" in prev.get(player, {}):  # 지난 trend 이월 (아래에서 새 값 있으면 덮어씀)
+            timeline[player]["trend"] = prev[player]["trend"]
         c = f"{counts[player]:,}건 · " if player in counts else ""
         print(f"  {player:<20} {c}타임라인 {len(recent)}건" + (f"  (최신 {recent[0]['date']})" if recent else "  ✗"))
         time.sleep(0.2)  # rate limit 여유
