@@ -74,7 +74,7 @@ def marketability(row: pd.Series) -> Marketability:
             notes.append(f"참여율 {eng:g}% = 최근 게시물 (좋아요+댓글)/팔로워 실측.")
 
     # 언론 노출: news_count(네이버 뉴스 검색 total) 가 1순위, 없으면 media_exposure 버킷 폴백.
-    # 파일럿 15명 중 14명은 news_count 보유(Breno 는 표기 불명확으로 공란 → 버킷).
+    # 파일럿 15명 전원 news_count 보유(2026-09).
     # media_exposure(1~5 수동 버킷)는 naver_queries.csv 에 질의어가 없는 선수를 위한 fallback.
     news_count = row.get("news_count")
     if pd.notna(news_count) and float(news_count) > 0:

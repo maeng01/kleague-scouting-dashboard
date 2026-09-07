@@ -17,7 +17,7 @@
 
 1. **Scouting Snapshot** (경기력 기초 맥락, 비중 작게) — 구현 완료 (`src/snapshot.py`)
 2. **Brand Fit & Marketability** (핵심, 비중 크게) — 구현 완료 (`src/brand_fit.py`).
-   파일럿 15명(`data/brand_fit_pilot.csv`, 참여율 11명 실측·news_count 14명) 대상.
+   파일럿 15명(`data/brand_fit_pilot.csv`, 참여율 11명 실측·news_count 15명) 대상.
    Marketability(참여율 최대 가중) + 이미지 태그 기반 카테고리 적합도(활성화 계수 방식)
    + 데이터랩 검색 관심 추세(캠페인 타이밍, 점수엔 미반영).
 3. **Agency Recommendation** — 구현 완료 (`src/agency.py`, `src/proposal.py`).
@@ -234,11 +234,11 @@ base Gls/Ast 대조로 올바른 줄 선택, 없는 파일은 스킵(NaN). `_row
 
 ### 파일럿 확대 11명 → 15명 (Claude in Chrome, 2026-09-07)
 IG 자체 검색으로 비파일럿 스트라이커 계정 탐색 → 4명 추가:
-- **Breno Herculano** `breno_herculano99` (인증·2만·안양·Skechers Korea) — 참여율 ~2.7% 실측(좋아요 400~700·댓글 15~55). mkt 37.7
+- **Breno Herculano** `breno_herculano99` (인증·2만·안양·Skechers Korea, 국내명 '엘쿠라노') — 참여율 ~2.7% 실측. mkt 39.7
 - **Hólmbert Friðjónsson** `holmbertfridjons` (인증·8.7K·광주·아이슬란드 대표) — 참여율 ~12% 실측(소규모 고밀도). mkt 70.5
 - **Kim Sinjin** `ks_20jin` (인증·4.0K·제주·2001년생) — 참여율 ~23% 실측 = **파일럿 최고**. 단 도달 거의 0 → mkt 59, '팔로워↔참여율 역상관' 저용량 끝점
 - **Vitor Gabriel** `v_gabriel09` (인증·16.9만·부천·2019 플라멩구 리베르타도레스 우승) — 최근 게시물 좋아요 비공개 → 팔로워만(Hleihil 케이스). mkt 60.2
-→ 참여율 실측 **8명 → 11명**. 신규 4명은 news_count 미수집이라 `media_exposure` 1–5 폴백(전부 2).
+→ 참여율 실측 **8명 → 11명**. news_count 는 이후 네이버 수집으로 15명 전원 확보.
 - 못 찾음: Kong Minhyu(`gongminhyun` 1.8K 여행계정, 축구 무관 추정), 최병찬·정재민 등 한국 롤플레이어(계정 없음/미미)
 - 파일럿 랭킹 페이지 선정 문구 갱신: "22명 풀 중 공개 개인 IG 확인되는 15명"
 
@@ -253,12 +253,13 @@ IG 자체 검색으로 비파일럿 스트라이커 계정 탐색 → 4명 추�
 - [x] 소개 & 사용법 페이지, 케이스 스터디 10건 보강
 - [x] 언론 노출 재현화 — NAVER API HUB news_count 파일럿 11명 실측, media 축 반영
 - [x] 최근가중 블렌드 뷰 (① 레이더 토글) / 플레이 아키타입 / 최근 뉴스 타임라인
-- [x] 검색 관심 추세(데이터랩) — 캠페인 타이밍 신호, 파일럿 11명
-- [x] pytest 25개 + GitHub Actions CI (rebuild + pytest)
+- [x] 검색 관심 추세(데이터랩) — 캠페인 타이밍 신호, 22명 전수
+- [x] pytest 26개 + GitHub Actions CI (rebuild + pytest)
 - [x] 파일럿 대상 확대 11→15명 (IG 로그인 세션, 참여율 실측 8→11명)
-- [x] naver_queries.csv 22명 전수 수집 완료 (2026-09-07). 신규 파일럿 news_count:
-      Vitor Gabriel 1,618 · Kim Sinjin 908 · Hólmbert(프리드욘손) 49 · Breno 는 표기 불명확으로 공란(버킷 유지).
-      player_news.json 22명 타임라인·트렌드. (키는 사용자 보유 — 갱신 시 재실행)
+- [x] naver_queries.csv 22명 전수 수집 완료 (2026-09-07). 파일럿 15명 전원 news_count:
+      빅토르 가브리엘 1,619 · 김신진 908 · 엘쿠라노(Breno) 488 · 프리드욘손 49 등.
+      player_news.json 22명 타임라인·트렌드. 외국인 등록명 주의: Breno→**엘쿠라노**, Vitor Gabriel→**빅토르 가브리엘**.
+      (키는 사용자 보유 — 갱신 시 재실행)
 - [ ] README 스크린샷 (프로젝트 마무리 시)
 - [ ] (향후 확장, 이번 범위 제외) ML Potential Model, Historical Backtesting
 

@@ -39,14 +39,7 @@
     "source": "isplus",
     "url": "https://isplus.com/article/view/isp202608140005"
    }
-  ],
-  "trend": {
-   "label": "보합",
-   "recent": 60.1,
-   "prior": 54.8,
-   "ratio": 1.1,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Patryk Klimala": {
   "query": "클리말라 축구",
@@ -88,14 +81,7 @@
     "source": "stoo",
     "url": "http://www.stoo.com/article.php?aid=108519988894"
    }
-  ],
-  "trend": {
-   "label": "상승세",
-   "recent": 40.1,
-   "prior": 26.3,
-   "ratio": 1.52,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Stefan Mugoša": {
   "query": "무고사 인천 골",
@@ -107,19 +93,18 @@
     "source": "newspim",
     "url": "https://www.newspim.com/news/view/20260823000175"
    }
-  ],
-  "trend": {
-   "label": "보합",
-   "recent": 41.2,
-   "prior": 51.7,
-   "ratio": 0.8,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Yago Cariello": {
   "query": "야고 울산",
   "asof": "2026-09-07",
   "items": [
+   {
+    "title": "야고 없어 에릭 역할 중요! 이동경과 특급 호흡 예고...수비부터 달라진...",
+    "date": "2026-09-07",
+    "source": "interfootball",
+    "url": "https://www.interfootball.co.kr/news/articleView.html?idxno=694048"
+   },
    {
     "title": "[뉴스워커_스포츠] \"이동경 어깨가 무겁다\" 야고 결장, 서울전 비상 걸...",
     "date": "2026-09-07",
@@ -127,16 +112,16 @@
     "url": "https://www.newsworker.co.kr/news/articleView.html?idxno=502851"
    },
    {
-    "title": "[K리그1 27R] 수적 우위 못 살린 제주SK, '야고 퇴장' 울산과 0-0 무승부",
-    "date": "2026-09-05",
-    "source": "sportalkorea",
-    "url": "https://www.sportalkorea.com/news/articleView.html?idxno=2025052909553515965"
-   },
-   {
     "title": "‘발목 밟고 퇴장한 야고’ 울산, 수적 열세에도 제주 원정서 0-0 무승부",
     "date": "2026-09-05",
     "source": "sportsseoul",
     "url": "https://www.sportsseoul.com/news/read/1633031?ref=naver"
+   },
+   {
+    "title": "[K리그1 27R] 수적 우위 못 살린 제주SK, '야고 퇴장' 울산과 0-0 무승부",
+    "date": "2026-09-05",
+    "source": "sportalkorea",
+    "url": "https://www.sportalkorea.com/news/articleView.html?idxno=2025052909553515965"
    },
    {
     "title": "이동경·야고 앞세운 울산, 제주전 3연승 도전",
@@ -149,21 +134,8 @@
     "date": "2026-09-01",
     "source": "newsis",
     "url": "https://www.newsis.com/view/NISX20260901_0003770923"
-   },
-   {
-    "title": "12·13호골 폭발… 울산 야고, K리그1 26라운드 MVP 선정",
-    "date": "2026-09-01",
-    "source": "sportsworldi",
-    "url": "https://www.sportsworldi.com/newsView/20260901521668"
    }
-  ],
-  "trend": {
-   "label": "상승세",
-   "recent": 4.8,
-   "prior": 2.2,
-   "ratio": 2.18,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Tiago Orobó": {
   "query": "전북 티아고 오로보",
@@ -187,14 +159,7 @@
     "source": "goal",
     "url": "https://www.goal.com/kr/뉴스/a/blt5d480dc488ac7f12"
    }
-  ],
-  "trend": {
-   "label": "상승세",
-   "recent": 5.3,
-   "prior": 0.5,
-   "ratio": 10.26,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Marcão": {
   "query": "울산 말컹",
@@ -206,25 +171,12 @@
     "source": "sportschosun",
     "url": "https://www.sportschosun.com/football/2026-08-26/202608260100158150010127"
    }
-  ],
-  "trend": {
-   "label": "보합",
-   "recent": 24.0,
-   "prior": 25.2,
-   "ratio": 0.95,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Abdallah Hleihil": {
   "query": "강원 흘레이할",
   "asof": "2026-09-07",
-  "items": [],
-  "trend": {
-   "label": "데이터 부족",
-   "recent": null,
-   "prior": null,
-   "asof": "2026-09-07"
-  }
+  "items": []
  },
  "Lee Hojae": {
   "query": "이호재 스트라이커",
@@ -266,13 +218,7 @@
     "source": "nocutnews",
     "url": "https://www.nocutnews.co.kr/news/6560132?utm_source=naver&utm_medium=article&utm_campaign=20260809091826"
    }
-  ],
-  "trend": {
-   "label": "데이터 부족",
-   "recent": null,
-   "prior": null,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Bruno Mota": {
   "query": "전북 브루노 모따",
@@ -314,14 +260,7 @@
     "source": "kyeonggi",
     "url": "https://www.kyeonggi.com/article/20250722580306"
    }
-  ],
-  "trend": {
-   "label": "상승세",
-   "recent": 4.5,
-   "prior": 1.0,
-   "ratio": 4.65,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Morgan Ferrier": {
   "query": "인천 페리어",
@@ -339,14 +278,7 @@
     "source": "fourfourtwo",
     "url": "https://www.fourfourtwo.co.kr/news/articleView.html?idxno=96954"
    }
-  ],
-  "trend": {
-   "label": "하락세",
-   "recent": 1.6,
-   "prior": 2.7,
-   "ratio": 0.59,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Diogo": {
   "query": "대전 디오고",
@@ -383,18 +315,12 @@
     "url": "https://www.besteleven.com/news/articleView.html?idxno=311880"
    },
    {
-    "title": "‘황새 용병술 적중! 디오고 1골 1도움 + 정재희 멀티골’ 골골골골골 ...",
+    "title": "'골골골골골' 단숨에 6위 도약! '1골-1도움 디오고→멀티골 정재희 맹활...",
     "date": "2026-09-05",
-    "source": "mk",
-    "url": "https://www.mk.co.kr/article/12145145"
+    "source": "sportschosun",
+    "url": "https://www.sportschosun.com/football/2026-09-05/202609050100037190002395"
    }
-  ],
-  "trend": {
-   "label": "데이터 부족",
-   "recent": null,
-   "prior": null,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Vitor Gabriel": {
   "query": "부천 가브리엘",
@@ -418,38 +344,49 @@
     "source": "osen",
     "url": "http://www.osen.co.kr/article/G1112861882"
    }
-  ],
-  "trend": {
-   "label": "하락세",
-   "recent": 17.3,
-   "prior": 49.2,
-   "ratio": 0.35,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Breno Herculano": {
-  "query": "안양 브레노",
+  "query": "안양 엘쿠라노",
   "asof": "2026-09-07",
   "items": [
    {
-    "title": "FC안양, 동계 훈련 돌입....브레노 곧 영입 발표",
-    "date": "2026-01-16",
-    "source": "news",
-    "url": "https://news.skbroadband.com/news/articleView.html?idxno=215351"
+    "title": "강원전 결승골로 안양 5위 이끈 엘쿠라노… \"4경기 무패, 매우 좋은 시기...",
+    "date": "2026-07-30",
+    "source": "besteleven",
+    "url": "https://www.besteleven.com/news/articleView.html?idxno=310569"
    },
    {
-    "title": "[단독] 안양, 모따 대체자 찾았다···189cm 브라질 스트라이커 브레노...",
-    "date": "2026-01-09",
-    "source": "mk",
-    "url": "https://www.mk.co.kr/article/11927628"
+    "title": "후반기 확 달라진 안양 엘쿠라노! 유병훈호 흐뭇하게 한 비결은 '자신감...",
+    "date": "2026-07-29",
+    "source": "footballist",
+    "url": "http://www.footballist.co.kr/news/articleView.html?idxno=212864"
+   },
+   {
+    "title": "유병훈의 기다림 통했다… ‘3개월 만의 골맛’ 엘쿠라노, 안양의 시즌...",
+    "date": "2026-07-26",
+    "source": "sportsworldi",
+    "url": "https://www.sportsworldi.com/newsView/20260726509819"
+   },
+   {
+    "title": "최건주-엘쿠라노 연속골 안양, 강원 무패 행진 끊으며 5위 도약[현장리...",
+    "date": "2026-07-26",
+    "source": "sportsseoul",
+    "url": "https://www.sportsseoul.com/news/read/1624696?ref=naver"
+   },
+   {
+    "title": "'SNS 안양 사진 삭제' 엘쿠라노, '맹활약' 후 입 열었다...\"이유가 뭐냐...",
+    "date": "2026-07-23",
+    "source": "osen",
+    "url": "http://www.osen.co.kr/article/G1112844601"
+   },
+   {
+    "title": "'갈레고-바사니-가브리엘 vs 최건주-엘쿠라노' 부천 안양, 맞대결 앞두고...",
+    "date": "2026-07-22",
+    "source": "osen",
+    "url": "http://www.osen.co.kr/article/G1112844277"
    }
-  ],
-  "trend": {
-   "label": "데이터 부족",
-   "recent": null,
-   "prior": null,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Hólmbert Friðjónsson": {
   "query": "광주 프리드욘손",
@@ -473,13 +410,7 @@
     "source": "nocutnews",
     "url": "https://www.nocutnews.co.kr/news/6381626?utm_source=naver&utm_medium=article&utm_campaign=20250806041217"
    }
-  ],
-  "trend": {
-   "label": "데이터 부족",
-   "recent": null,
-   "prior": null,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Kim Sinjin": {
   "query": "제주 김신진",
@@ -491,13 +422,7 @@
     "source": "goal",
     "url": "https://www.goal.com/kr/뉴스/a/bltea4dd0412e1d2615"
    }
-  ],
-  "trend": {
-   "label": "데이터 부족",
-   "recent": null,
-   "prior": null,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Choe Byeongchan": {
   "query": "강원 최병찬",
@@ -515,13 +440,7 @@
     "source": "sportsseoul",
     "url": "https://www.sportsseoul.com/news/read/1630256?ref=naver"
    }
-  ],
-  "trend": {
-   "label": "데이터 부족",
-   "recent": null,
-   "prior": null,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Kim Gun-hee": {
   "query": "강원 김건희",
@@ -551,14 +470,7 @@
     "source": "sportsworldi",
     "url": "https://www.sportsworldi.com/newsView/20260906510555"
    }
-  ],
-  "trend": {
-   "label": "상승세",
-   "recent": 32.8,
-   "prior": 21.0,
-   "ratio": 1.56,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Kong Minhyu": {
   "query": "공민현 축구",
@@ -600,14 +512,7 @@
     "source": "app",
     "url": "http://app.yonhapnews.co.kr/YNA/Basic/SNS/r.aspx?c=AKR20151011043600007&did=1195m"
    }
-  ],
-  "trend": {
-   "label": "하락세",
-   "recent": 12.1,
-   "prior": 20.3,
-   "ratio": 0.6,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Jeong Jaemin": {
   "query": "상무 정재민 축구",
@@ -631,13 +536,7 @@
     "source": "sportalkorea",
     "url": "https://www.sportalkorea.com/news/articleView.html?idxno=2025052909553369968"
    }
-  ],
-  "trend": {
-   "label": "데이터 부족",
-   "recent": null,
-   "prior": null,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Jhon Montaño": {
   "query": "부천 몬타뇨",
@@ -679,14 +578,7 @@
     "source": "mk",
     "url": "https://www.mk.co.kr/article/11991870"
    }
-  ],
-  "trend": {
-   "label": "하락세",
-   "recent": 20.5,
-   "prior": 45.7,
-   "ratio": 0.45,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Lee Sang-heon": {
   "query": "상무 이상헌 공격수",
@@ -728,14 +620,7 @@
     "source": "footballist",
     "url": "http://www.footballist.co.kr/news/articleView.html?idxno=188087"
    }
-  ],
-  "trend": {
-   "label": "하락세",
-   "recent": 3.9,
-   "prior": 7.2,
-   "ratio": 0.55,
-   "asof": "2026-09-07"
-  }
+  ]
  },
  "Lee Kunhee": {
   "query": "상무 이건희 골",
@@ -759,13 +644,6 @@
     "source": "sportalkorea",
     "url": "https://www.sportalkorea.com/news/articleView.html?idxno=2025052909553191505"
    }
-  ],
-  "trend": {
-   "label": "보합",
-   "recent": 34.4,
-   "prior": 30.9,
-   "ratio": 1.11,
-   "asof": "2026-09-07"
-  }
+  ]
  }
 }
