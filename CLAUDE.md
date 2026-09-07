@@ -230,6 +230,16 @@ base Gls/Ast 대조로 올바른 줄 선택, 없는 파일은 스킵(NaN). `_row
   - **Lee Hojae: 개인 Instagram 없음(사용자 확인). 팬페이지만 존재** → SNS 축 0.
   - `measured_likes_only` note 문구 수정(댓글 비활성 → 좋아요만 집계).
 
+### 파일럿 확대 11명 → 15명 (Claude in Chrome, 2026-09-07)
+IG 자체 검색으로 비파일럿 스트라이커 계정 탐색 → 4명 추가:
+- **Breno Herculano** `breno_herculano99` (인증·2만·안양·Skechers Korea) — 참여율 ~2.7% 실측(좋아요 400~700·댓글 15~55). mkt 37.7
+- **Hólmbert Friðjónsson** `holmbertfridjons` (인증·8.7K·광주·아이슬란드 대표) — 참여율 ~12% 실측(소규모 고밀도). mkt 70.5
+- **Kim Sinjin** `ks_20jin` (인증·4.0K·제주·2001년생) — 참여율 ~23% 실측 = **파일럿 최고**. 단 도달 거의 0 → mkt 59, '팔로워↔참여율 역상관' 저용량 끝점
+- **Vitor Gabriel** `v_gabriel09` (인증·16.9만·부천·2019 플라멩구 리베르타도레스 우승) — 최근 게시물 좋아요 비공개 → 팔로워만(Hleihil 케이스). mkt 60.2
+→ 참여율 실측 **8명 → 11명**. 신규 4명은 news_count 미수집이라 `media_exposure` 1–5 폴백(전부 2).
+- 못 찾음: Kong Minhyu(`gongminhyun` 1.8K 여행계정, 축구 무관 추정), 최병찬·정재민 등 한국 롤플레이어(계정 없음/미미)
+- 파일럿 랭킹 페이지 선정 문구 갱신: "22명 풀 중 공개 개인 IG 확인되는 15명"
+
 ## 아직 안 한 것 / 다음 단계
 
 - [x] Brand Fit & Marketability 모듈 (파일럿 10명)
@@ -243,7 +253,8 @@ base Gls/Ast 대조로 올바른 줄 선택, 없는 파일은 스킵(NaN). `_row
 - [x] 최근가중 블렌드 뷰 (① 레이더 토글) / 플레이 아키타입 / 최근 뉴스 타임라인
 - [x] 검색 관심 추세(데이터랩) — 캠페인 타이밍 신호, 파일럿 11명
 - [x] pytest 25개 + GitHub Actions CI (rebuild + pytest)
-- [ ] 파일럿 대상 확대 (IG 로그인 세션 필요) / 비파일럿 풀 news_count / README 스크린샷(마무리 시)
+- [x] 파일럿 대상 확대 11→15명 (IG 로그인 세션, 참여율 실측 8→11명)
+- [ ] 신규 4명 news_count 수집 (naver_queries.csv 행 추가 + 키로 collect_naver 실행) / README 스크린샷(마무리 시)
 - [ ] (향후 확장, 이번 범위 제외) ML Potential Model, Historical Backtesting
 
 ## 톤 관련 주의사항
